@@ -72,24 +72,28 @@ export interface Config {
     creator: Creator;
     List: List;
     media: Media;
-    person: Person;
     publisher: Publisher;
     users: User;
+    author: Author;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
-  collectionsJoins: {};
+  collectionsJoins: {
+    author: {
+      related_lists: 'List';
+    };
+  };
   collectionsSelect: {
     category: CategorySelect<false> | CategorySelect<true>;
     Content: ContentSelect<false> | ContentSelect<true>;
     creator: CreatorSelect<false> | CreatorSelect<true>;
     List: ListSelect<false> | ListSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
-    person: PersonSelect<false> | PersonSelect<true>;
     publisher: PublisherSelect<false> | PublisherSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    author: AuthorSelect<false> | AuthorSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -168,7 +172,51 @@ export interface Creator {
  */
 export interface List {
   id: number;
+  parent_title: string;
+  publish_date?: string | null;
+  publisher?: (number | null) | Publisher;
+  author?: (number | null) | Author;
+  year_list: string;
   category: number | Category;
+  parent_list?:
+    | {
+        list_title?: string | null;
+        description?: string | null;
+        is_ordered: boolean;
+        list_entry?:
+          | {
+              content: number | Content;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "publisher".
+ */
+export interface Publisher {
+  id: number;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "author".
+ */
+export interface Author {
+  id: number;
+  name: string;
+  related_lists?: {
+    docs?: (number | List)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -190,27 +238,6 @@ export interface Media {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "person".
- */
-export interface Person {
-  id: number;
-  person: string;
-  category: number | Category;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "publisher".
- */
-export interface Publisher {
-  id: number;
-  name: string;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -281,16 +308,16 @@ export interface PayloadLockedDocument {
         value: number | Media;
       } | null)
     | ({
-        relationTo: 'person';
-        value: number | Person;
-      } | null)
-    | ({
         relationTo: 'publisher';
         value: number | Publisher;
       } | null)
     | ({
         relationTo: 'users';
         value: number | User;
+      } | null)
+    | ({
+        relationTo: 'author';
+        value: number | Author;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -370,7 +397,26 @@ export interface CreatorSelect<T extends boolean = true> {
  * via the `definition` "List_select".
  */
 export interface ListSelect<T extends boolean = true> {
+  parent_title?: T;
+  publish_date?: T;
+  publisher?: T;
+  author?: T;
+  year_list?: T;
   category?: T;
+  parent_list?:
+    | T
+    | {
+        list_title?: T;
+        description?: T;
+        is_ordered?: T;
+        list_entry?:
+          | T
+          | {
+              content?: T;
+              id?: T;
+            };
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -391,16 +437,6 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "person_select".
- */
-export interface PersonSelect<T extends boolean = true> {
-  person?: T;
-  category?: T;
-  updatedAt?: T;
-  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -432,6 +468,16 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "author_select".
+ */
+export interface AuthorSelect<T extends boolean = true> {
+  name?: T;
+  related_lists?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

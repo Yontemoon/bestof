@@ -3,7 +3,6 @@ import Link from 'next/link'
 
 import './styles.css'
 import { createPayload } from '@/utils/payload'
-import type { Author } from '@/payload-types'
 
 export default async function HomePage() {
   const payload = await createPayload()
@@ -11,7 +10,6 @@ export default async function HomePage() {
   const list = await payload.find({
     collection: 'List',
   })
-  console.log(list)
 
   return (
     <div className="home">

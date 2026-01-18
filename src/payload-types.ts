@@ -75,12 +75,22 @@ export interface Config {
     publisher: Publisher;
     users: User;
     author: Author;
+    year: Year;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
   collectionsJoins: {
+    category: {
+      associated_lists: 'List';
+    };
+    Content: {
+      related_list: 'List';
+    };
+    creator: {
+      related_list: 'List';
+    };
     author: {
       related_lists: 'List';
     };
@@ -94,6 +104,7 @@ export interface Config {
     publisher: PublisherSelect<false> | PublisherSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     author: AuthorSelect<false> | AuthorSelect<true>;
+    year: YearSelect<false> | YearSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -103,8 +114,14 @@ export interface Config {
     defaultIDType: number;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    'top-navbar': TopNavbar;
+    'year-navbar': YearNavbar;
+  };
+  globalsSelect: {
+    'top-navbar': TopNavbarSelect<false> | TopNavbarSelect<true>;
+    'year-navbar': YearNavbarSelect<false> | YearNavbarSelect<true>;
+  };
   locale: null;
   user: User & {
     collection: 'users';
@@ -137,32 +154,13 @@ export interface UserAuthOperations {
  * via the `definition` "category".
  */
 export interface Category {
-  id: number;
-  category: string;
+  id: string;
   creator_type: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Content".
- */
-export interface Content {
-  id: number;
-  title: string;
-  category: number | Category;
-  creator: number | Creator;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "creator".
- */
-export interface Creator {
-  id: number;
-  creator: string;
-  category: number | Category;
+  associated_lists?: {
+    docs?: (number | List)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -173,11 +171,12 @@ export interface Creator {
 export interface List {
   id: number;
   parent_title: string;
+  list_link?: string | null;
   publish_date?: string | null;
   publisher?: (number | null) | Publisher;
   author?: (number | null) | Author;
-  year_list: string;
-  category: number | Category;
+  year: number | Year;
+  category: string | Category;
   parent_list?:
     | {
         list_title?: string | null;
@@ -213,6 +212,48 @@ export interface Author {
   id: number;
   name: string;
   related_lists?: {
+    docs?: (number | List)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "year".
+ */
+export interface Year {
+  id: number;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Content".
+ */
+export interface Content {
+  id: number;
+  title: string;
+  category: string | Category;
+  creator: number | Creator;
+  related_list?: {
+    docs?: (number | List)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "creator".
+ */
+export interface Creator {
+  id: number;
+  creator: string;
+  category: string | Category;
+  related_list?: {
     docs?: (number | List)[];
     hasNextPage?: boolean;
     totalDocs?: number;
@@ -289,7 +330,7 @@ export interface PayloadLockedDocument {
   document?:
     | ({
         relationTo: 'category';
-        value: number | Category;
+        value: string | Category;
       } | null)
     | ({
         relationTo: 'Content';
@@ -318,6 +359,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'author';
         value: number | Author;
+      } | null)
+    | ({
+        relationTo: 'year';
+        value: number | Year;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -366,8 +411,9 @@ export interface PayloadMigration {
  * via the `definition` "category_select".
  */
 export interface CategorySelect<T extends boolean = true> {
-  category?: T;
+  id?: T;
   creator_type?: T;
+  associated_lists?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -379,6 +425,7 @@ export interface ContentSelect<T extends boolean = true> {
   title?: T;
   category?: T;
   creator?: T;
+  related_list?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -389,6 +436,7 @@ export interface ContentSelect<T extends boolean = true> {
 export interface CreatorSelect<T extends boolean = true> {
   creator?: T;
   category?: T;
+  related_list?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -398,10 +446,11 @@ export interface CreatorSelect<T extends boolean = true> {
  */
 export interface ListSelect<T extends boolean = true> {
   parent_title?: T;
+  list_link?: T;
   publish_date?: T;
   publisher?: T;
   author?: T;
-  year_list?: T;
+  year?: T;
   category?: T;
   parent_list?:
     | T
@@ -481,6 +530,15 @@ export interface AuthorSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "year_select".
+ */
+export interface YearSelect<T extends boolean = true> {
+  id?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
@@ -518,6 +576,62 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "top-navbar".
+ */
+export interface TopNavbar {
+  id: number;
+  categories: {
+    category: string | Category;
+    id?: string | null;
+  }[];
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "year-navbar".
+ */
+export interface YearNavbar {
+  id: number;
+  years: {
+    year: number | Year;
+    id?: string | null;
+  }[];
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "top-navbar_select".
+ */
+export interface TopNavbarSelect<T extends boolean = true> {
+  categories?:
+    | T
+    | {
+        category?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "year-navbar_select".
+ */
+export interface YearNavbarSelect<T extends boolean = true> {
+  years?:
+    | T
+    | {
+        year?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

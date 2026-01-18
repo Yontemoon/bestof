@@ -1,9 +1,9 @@
 import React from 'react'
-import './styles.css'
+import TopNavbar from '@/components/top-navbar'
 
 export const metadata = {
-  description: 'A blank template using Payload in a Next.js app.',
-  title: 'Payload Blank Template',
+  description: 'Best of',
+  title: 'Curated list of the best stuff in media.',
 }
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
@@ -12,6 +12,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
+        <TopNavbar />
         <main>{children}</main>
       </body>
     </html>

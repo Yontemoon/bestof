@@ -20,7 +20,7 @@ const AuthorPage = async ({ params }: { params: Promise<{ id: string }> }) => {
             return <div>{list}</div>
           } else {
             return (
-              <div>
+              <div key={list.id}>
                 <Link href={`/list/${list.id}`}>{list.parent_title}</Link>
               </div>
             )

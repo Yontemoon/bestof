@@ -9,6 +9,11 @@ export const List: CollectionConfig = {
       required: true,
     },
     {
+      name: 'list_link',
+      type: 'text',
+      required: false,
+    },
+    {
       name: 'publish_date',
       type: 'date',
       required: false,
@@ -26,10 +31,12 @@ export const List: CollectionConfig = {
       required: false,
     },
     {
-      name: 'year_list',
-      type: 'text',
+      name: 'year',
+      type: 'relationship',
+      relationTo: 'year',
       required: true,
     },
+
     {
       name: 'category',
       type: 'relationship',

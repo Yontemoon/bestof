@@ -17,6 +17,7 @@ export const Content: CollectionConfig = {
       type: 'relationship',
       relationTo: 'category',
       required: true,
+      defaultValue: 'movies',
     },
     {
       name: 'creator',
@@ -39,6 +40,12 @@ export const Content: CollectionConfig = {
           },
         }
       },
+    },
+    {
+      name: 'related_list',
+      type: 'join',
+      collection: 'List',
+      on: 'parent_list.list_entry.content',
     },
   ],
 }

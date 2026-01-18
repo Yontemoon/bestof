@@ -17,5 +17,11 @@ export const Creator: CollectionConfig = {
       relationTo: 'category',
       required: true,
     },
+    {
+      name: 'related_list',
+      type: 'join',
+      collection: 'List',
+      on: 'parent_list.list_entry.content',
+    },
   ],
 }

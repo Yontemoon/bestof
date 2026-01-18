@@ -5,7 +5,19 @@ import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
-import { Author, Category, Content, Creator, List, Media, Publisher, Users } from './collections'
+import {
+  Author,
+  Category,
+  Content,
+  Creator,
+  List,
+  Media,
+  Publisher,
+  Users,
+  Year,
+} from './collections'
+
+import { Nav, YearNavbar } from './globals'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -17,7 +29,8 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Category, Content, Creator, List, Media, Publisher, Users, Author],
+  collections: [Category, Content, Creator, List, Media, Publisher, Users, Author, Year],
+  globals: [Nav, YearNavbar],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

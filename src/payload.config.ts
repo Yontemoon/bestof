@@ -30,6 +30,7 @@ export default buildConfig({
     },
   },
   collections: [Category, Content, Creator, List, Media, Publisher, Users, Author, Year],
+
   globals: [Nav, YearNavbar],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

@@ -172,6 +172,7 @@ export interface List {
   id: number;
   parent_title: string;
   list_link?: string | null;
+  slug?: string | null;
   publish_date?: string | null;
   publisher?: (number | null) | Publisher;
   author?: (number | null) | Author;
@@ -201,6 +202,7 @@ export interface List {
 export interface Publisher {
   id: number;
   name: string;
+  slug: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -211,6 +213,7 @@ export interface Publisher {
 export interface Author {
   id: number;
   name: string;
+  slug: string;
   related_lists?: {
     docs?: (number | List)[];
     hasNextPage?: boolean;
@@ -236,6 +239,7 @@ export interface Content {
   id: number;
   title: string;
   category: string | Category;
+  slug: string;
   creator: number | Creator;
   related_list?: {
     docs?: (number | List)[];
@@ -252,6 +256,7 @@ export interface Content {
 export interface Creator {
   id: number;
   creator: string;
+  slug: string;
   category: string | Category;
   related_list?: {
     docs?: (number | List)[];
@@ -424,6 +429,7 @@ export interface CategorySelect<T extends boolean = true> {
 export interface ContentSelect<T extends boolean = true> {
   title?: T;
   category?: T;
+  slug?: T;
   creator?: T;
   related_list?: T;
   updatedAt?: T;
@@ -435,6 +441,7 @@ export interface ContentSelect<T extends boolean = true> {
  */
 export interface CreatorSelect<T extends boolean = true> {
   creator?: T;
+  slug?: T;
   category?: T;
   related_list?: T;
   updatedAt?: T;
@@ -447,6 +454,7 @@ export interface CreatorSelect<T extends boolean = true> {
 export interface ListSelect<T extends boolean = true> {
   parent_title?: T;
   list_link?: T;
+  slug?: T;
   publish_date?: T;
   publisher?: T;
   author?: T;
@@ -493,6 +501,7 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface PublisherSelect<T extends boolean = true> {
   name?: T;
+  slug?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -524,6 +533,7 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface AuthorSelect<T extends boolean = true> {
   name?: T;
+  slug?: T;
   related_lists?: T;
   updatedAt?: T;
   createdAt?: T;

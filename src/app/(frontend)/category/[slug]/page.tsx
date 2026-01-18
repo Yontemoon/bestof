@@ -22,7 +22,7 @@ const ContentPage = async ({ params }: { params: Promise<{ slug: string }> }) =>
       {docs.map((doc) => {
         return (
           <div key={doc.id}>
-            <Link href={`/list/${doc.id}`}>{doc.parent_title}</Link>
+            <Link href={`/list/${doc.id}/${doc.slug}`}>{doc.parent_title}</Link>
           </div>
         )
       })}

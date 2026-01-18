@@ -17,9 +17,9 @@ export default async function HomePage() {
         return (
           <div key={doc.id}>
             {typeof doc.author === 'object' && doc.author && 'id' in doc.author && (
-              <Link href={`/author/${doc.author.id}`}>{doc.author.name}</Link>
+              <Link href={`/author/${doc.author.id}/${doc.author.slug}`}>{doc.author.name}</Link>
             )}
-            <Link href={`/list/${doc.id}`}> {doc.parent_title}</Link>
+            <Link href={`/list/${doc.id}/${doc.slug}`}> {doc.parent_title}</Link>
           </div>
         )
       })}

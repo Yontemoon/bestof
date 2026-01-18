@@ -1,7 +1,36 @@
 import type { CollectionConfig } from 'payload'
+import { slugify } from '@/lib/utils'
 
 export const List: CollectionConfig = {
   slug: 'List',
+  // admin:
+  hooks: {
+    beforeChange: [
+      async ({ data, req }) => {
+        if (!data.parent_title || !data.author) return data
+        console.log(data)
+        const payload = req.payload
+
+        const authorDoc =
+          typeof data.author === 'number'
+            ? await payload.findByID({
+                collection: 'author',
+                id: data.author,
+              })
+            : data.author
+
+        console.log(authorDoc)
+
+        const authorSlug = slugify(authorDoc?.name)
+
+        const parentSlug = slugify(data.parent_title)
+
+        data.slug = `${authorSlug}-${parentSlug}`
+
+        return data
+      },
+    ],
+  },
   fields: [
     {
       name: 'parent_title',
@@ -12,6 +41,14 @@ export const List: CollectionConfig = {
       name: 'list_link',
       type: 'text',
       required: false,
+    },
+    {
+      name: 'slug',
+      type: 'text',
+      required: false,
+      admin: {
+        hidden: true,
+      },
     },
     {
       name: 'publish_date',

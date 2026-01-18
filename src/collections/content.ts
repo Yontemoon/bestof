@@ -1,8 +1,19 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionBeforeChangeHook, CollectionConfig } from 'payload'
+import { Content as ContentType } from '@/payload-types'
+import { beforeChangeSlugify } from '@/lib/utils'
+
+const beforeChangeHook: CollectionBeforeChangeHook<ContentType> = ({ data }) => {
+  if (!data) return data
+
+  const newData = beforeChangeSlugify(data, 'title')
+  return newData
+}
 
 export const Content: CollectionConfig = {
   slug: 'Content',
-
+  hooks: {
+    beforeChange: [beforeChangeHook],
+  },
   admin: {
     useAsTitle: 'title',
   },
@@ -18,6 +29,17 @@ export const Content: CollectionConfig = {
       relationTo: 'category',
       required: true,
       defaultValue: 'movies',
+    },
+    {
+      name: 'slug',
+      type: 'text',
+      required: true,
+      defaultValue: () => {
+        return 'seomthing'
+      },
+      admin: {
+        hidden: true,
+      },
     },
     {
       name: 'creator',

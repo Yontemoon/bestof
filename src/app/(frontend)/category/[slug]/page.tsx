@@ -1,5 +1,5 @@
 import { createPayload } from '@/utils/payload'
-
+import Link from 'next/link'
 import React from 'react'
 
 const ContentPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
@@ -20,7 +20,11 @@ const ContentPage = async ({ params }: { params: Promise<{ slug: string }> }) =>
   return (
     <div>
       {docs.map((doc) => {
-        return <div key={doc.id}>{doc.parent_title}</div>
+        return (
+          <div key={doc.id}>
+            <Link href={`/list/${doc.id}`}>{doc.parent_title}</Link>
+          </div>
+        )
       })}
     </div>
   )

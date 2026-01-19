@@ -27,7 +27,6 @@ const CategoryBaseOnYear = async ({
       ],
     },
   })
-  console.log(docs)
 
   return <div>{JSON.stringify(docs)}</div>
 }

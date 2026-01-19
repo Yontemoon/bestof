@@ -12,7 +12,6 @@ const ListPage = async ({ params }: { params: Promise<{ id: string }> }) => {
     collection: 'List',
     id: id,
   })
-  console.log(data)
 
   redirect(`/list/${data.id}/${data.slug}`)
 }

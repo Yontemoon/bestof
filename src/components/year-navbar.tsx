@@ -12,7 +12,6 @@ const YearNavbar = async ({ slug }: PropTypes) => {
     slug: 'year-navbar',
   })
 
-  console.log(years)
   const filteredYears = years
     .map((year) => {
       return year.year

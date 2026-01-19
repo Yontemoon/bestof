@@ -48,7 +48,6 @@ export const Content: CollectionConfig = {
       required: true,
 
       filterOptions: ({ data }) => {
-        console.log(data)
         // If no category is selected yet, don't filter (or return false to hide all)
         if (!data.category) {
           return true

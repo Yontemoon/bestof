@@ -12,7 +12,6 @@ const ListPage = async ({ params }: { params: Promise<{ id: string; slug: string
     collection: 'List',
     id: id,
   })
-  console.log(data)
 
   if (data.slug !== slug) {
     redirect(`/list/${data.id}/${data.slug}`)

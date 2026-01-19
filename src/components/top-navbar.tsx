@@ -9,7 +9,6 @@ const TopNavbar = async () => {
     slug: 'top-navbar',
     depth: 1,
   })
-  console.log(categories)
 
   const filteredCategories = categories
     .map((category) => {

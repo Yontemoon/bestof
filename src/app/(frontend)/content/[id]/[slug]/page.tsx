@@ -21,12 +21,22 @@ const ContentPage = async ({ params }: { params: Promise<{ id: string; slug: str
 
   const removedNum = related_list?.docs.filter((list) => typeof list !== 'number')
 
-  const list = removedNum.flatMap((doc) => {
-    return doc.parent_list?.map((list) => {
-      if (list.is_ordered) {
+  const list = removedNum
+    .flatMap((doc) => {
+      return doc.parent_list?.map((list) => {
         const index = list.list_entry?.findIndex((entry) => entry.content === Number(id))
-
-        if (!index) {
+        if (index === -1 || index === undefined) {
+          return undefined
+        }
+        if (list.is_ordered) {
+          return {
+            rank: index + 1,
+            title: doc.parent_title,
+            link: doc.list_link,
+            id: doc.id,
+            slug: doc.slug,
+          }
+        } else {
           return {
             rank: null,
             title: doc.parent_title,
@@ -35,24 +45,9 @@ const ContentPage = async ({ params }: { params: Promise<{ id: string; slug: str
             slug: doc.slug,
           }
         }
-        return {
-          rank: index + 1,
-          title: doc.parent_title,
-          link: doc.list_link,
-          id: doc.id,
-          slug: doc.slug,
-        }
-      } else {
-        return {
-          rank: null,
-          title: doc.parent_title,
-          link: doc.list_link,
-          id: doc.id,
-          slug: doc.slug,
-        }
-      }
+      })
     })
-  })
+    .filter((list) => list)
 
   list?.sort((curr, prev) => {
     if (!curr || !prev) {
@@ -61,7 +56,7 @@ const ContentPage = async ({ params }: { params: Promise<{ id: string; slug: str
     if (curr?.rank === null || prev?.rank === null) {
       return -1
     }
-    return prev.rank - curr.rank
+    return curr.rank - prev.rank
   })
 
   return (
@@ -69,7 +64,9 @@ const ContentPage = async ({ params }: { params: Promise<{ id: string; slug: str
       {list.map((item, index) => {
         return (
           <div key={index}>
-            <Link href={`/list/${item?.id}/${item?.slug}`}>{item?.title}</Link>
+            <Link href={`/list/${item?.id}/${item?.slug}`}>
+              {item?.rank && `${item.rank}. `} {item?.title}
+            </Link>
           </div>
         )
       })}

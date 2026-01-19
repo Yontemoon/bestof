@@ -8,7 +8,7 @@ export const List: CollectionConfig = {
     beforeChange: [
       async ({ data, req }) => {
         if (!data.parent_title || !data.author) return data
-        console.log(data)
+
         const payload = req.payload
 
         const authorDoc =
@@ -18,8 +18,6 @@ export const List: CollectionConfig = {
                 id: data.author,
               })
             : data.author
-
-        console.log(authorDoc)
 
         const authorSlug = slugify(authorDoc?.name)
 

@@ -11,6 +11,9 @@ const beforeChangeHook: CollectionBeforeChangeHook<PublisherTypes> = ({ data }) 
 
 export const Publisher: CollectionConfig = {
   slug: 'publisher',
+  admin: {
+    useAsTitle: 'name',
+  },
   hooks: {
     beforeChange: [beforeChangeHook],
   },

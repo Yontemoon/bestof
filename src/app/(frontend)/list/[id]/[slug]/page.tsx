@@ -39,14 +39,17 @@ const ListPage = async ({ params }: { params: Promise<{ id: string; slug: string
                         <Link href={`/content/${list_entry.content.id}/${list_entry.content.slug}`}>
                           <h3>{list_entry.content.title}</h3>
                         </Link>
-                        {typeof list_entry.content.creator === 'object' &&
-                          list_entry.content.creator && (
-                            <Link
-                              href={`/creator/${list_entry.content.creator.id}/${list_entry.content.creator.slug}`}
-                            >
-                              <h3>{list_entry.content.creator.creator}</h3>
-                            </Link>
-                          )}
+                        {Array.isArray(list_entry.content.creator) &&
+                          list_entry.content.creator.map((creator) => {
+                            if (typeof creator === 'object' && creator !== null) {
+                              return (
+                                <Link key={creator.id} href={`/creator/${creator.id}/${creator.slug}`}>
+                                  <h3>{creator.creator}</h3>
+                                </Link>
+                              )
+                            }
+                            return null
+                          })}
                       </>
                     )}
                   </div>

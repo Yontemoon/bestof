@@ -19,7 +19,11 @@ const TopNavbar = async () => {
     })
 
   return (
-    <div>
+    <div className="flex justify-between">
+      <Link href="/">
+        <span>Best Of</span>
+      </Link>
+
       {filteredCategories.map((category) => {
         return (
           <div key={category.id}>

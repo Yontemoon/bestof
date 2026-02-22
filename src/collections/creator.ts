@@ -40,6 +40,15 @@ export const Creator: CollectionConfig = {
       required: true,
     },
     {
+      name: 'unique_id',
+      admin: {
+        hidden: true,
+      },
+      type: 'text',
+      // required: true,
+      unique: true,
+    },
+    {
       name: 'related_list',
       type: 'join',
       collection: 'List',

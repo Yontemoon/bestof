@@ -12,7 +12,7 @@ export default async function HomePage() {
   })
 
   return (
-    <div className="home">
+    <div className="container mx-auto">
       {list.docs.map((doc) => {
         return (
           <div key={doc.id}>

@@ -239,8 +239,9 @@ export interface Content {
   id: number;
   title: string;
   category: string | Category;
+  unique_id?: string | null;
   slug: string;
-  creator: number | Creator;
+  creator: (number | Creator)[];
   related_list?: {
     docs?: (number | List)[];
     hasNextPage?: boolean;
@@ -258,6 +259,7 @@ export interface Creator {
   creator: string;
   slug: string;
   category: string | Category;
+  unique_id?: string | null;
   related_list?: {
     docs?: (number | List)[];
     hasNextPage?: boolean;
@@ -429,6 +431,7 @@ export interface CategorySelect<T extends boolean = true> {
 export interface ContentSelect<T extends boolean = true> {
   title?: T;
   category?: T;
+  unique_id?: T;
   slug?: T;
   creator?: T;
   related_list?: T;
@@ -443,6 +446,7 @@ export interface CreatorSelect<T extends boolean = true> {
   creator?: T;
   slug?: T;
   category?: T;
+  unique_id?: T;
   related_list?: T;
   updatedAt?: T;
   createdAt?: T;

@@ -19,6 +19,9 @@ import {
 
 import { Nav, YearNavbar } from './globals'
 
+import dotenv from 'dotenv'
+dotenv.config()
+
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 

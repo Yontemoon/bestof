@@ -31,6 +31,14 @@ export const Content: CollectionConfig = {
       defaultValue: 'movies',
     },
     {
+      name: 'unique_id',
+      type: 'text',
+      unique: true,
+      admin: {
+        hidden: true,
+      },
+    },
+    {
       name: 'slug',
       type: 'text',
       required: true,
@@ -46,6 +54,7 @@ export const Content: CollectionConfig = {
       type: 'relationship',
       relationTo: 'creator',
       required: true,
+      hasMany: true,
 
       filterOptions: ({ data }) => {
         // If no category is selected yet, don't filter (or return false to hide all)

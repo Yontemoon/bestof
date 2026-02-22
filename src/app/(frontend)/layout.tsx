@@ -1,3 +1,5 @@
+export const dynamic = 'force-static'
+
 import React from 'react'
 import TopNavbar from '@/components/top-navbar'
 

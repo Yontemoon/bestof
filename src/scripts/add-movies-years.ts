@@ -10,7 +10,9 @@ const createPayload = async () => {
   return getPayload({ config: payloadConfig })
 }
 
-dotenv.config()
+dotenv.config({
+  quiet: true,
+})
 
 const TMDB_TOKEN = process.env.MOVIE_DB_API
 console.log('SCRIPT FOR ADD MOVIES YEARS IS TRIGGERING')

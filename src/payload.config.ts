@@ -22,7 +22,7 @@ import { Nav, YearNavbar } from './globals'
 import dotenv from 'dotenv'
 dotenv.config({
   debug: true,
-  path: path.resolve(__dirname, './.env'),
+  path: path.resolve(__dirname, '../.env'),
 })
 
 const filename = fileURLToPath(import.meta.url)

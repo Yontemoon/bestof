@@ -20,7 +20,9 @@ import {
 import { Nav, YearNavbar } from './globals'
 
 import dotenv from 'dotenv'
-dotenv.config()
+dotenv.config({
+  debug: true,
+})
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -42,7 +44,7 @@ export default buildConfig({
   },
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.DATABASE_URL || '',
+      connectionString: process.env.DATABASE_URI || '',
     },
   }),
   sharp,

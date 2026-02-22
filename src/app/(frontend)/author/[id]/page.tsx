@@ -1,8 +1,5 @@
 import { createPayload } from '@/utils/payload'
-import Link from 'next/link'
 import { redirect } from 'next/navigation'
-import React from 'react'
-
 const AuthorPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params
 

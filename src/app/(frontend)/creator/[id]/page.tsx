@@ -1,6 +1,5 @@
 import { createPayload } from '@/utils/payload'
 import { redirect } from 'next/navigation'
-import React from 'react'
 
 const CreatorPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params

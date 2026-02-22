@@ -1,5 +1,4 @@
 import React from 'react'
-
 import { createPayload } from '@/utils/payload'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
@@ -43,7 +42,10 @@ const ListPage = async ({ params }: { params: Promise<{ id: string; slug: string
                           list_entry.content.creator.map((creator) => {
                             if (typeof creator === 'object' && creator !== null) {
                               return (
-                                <Link key={creator.id} href={`/creator/${creator.id}/${creator.slug}`}>
+                                <Link
+                                  key={creator.id}
+                                  href={`/creator/${creator.id}/${creator.slug}`}
+                                >
                                   <h3>{creator.creator}</h3>
                                 </Link>
                               )

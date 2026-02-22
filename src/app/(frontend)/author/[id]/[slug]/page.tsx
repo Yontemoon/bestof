@@ -22,7 +22,7 @@ const AuthorPage = async ({ params }: { params: Promise<{ id: string; slug: stri
       <div>
         {data.related_lists?.docs?.map((list) => {
           if (typeof list === 'number') {
-            return <div>{list}</div>
+            return <div key={list}>{list}</div>
           } else {
             return (
               <div key={list.id}>

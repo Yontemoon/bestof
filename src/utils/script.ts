@@ -3,7 +3,7 @@ import { BasePayload, getPayload } from 'payload'
 import { slugify } from '../lib/utils.js'
 import dotenv from 'dotenv'
 import config from '../payload.config.js'
-import type { Creator } from '../payload-types.js'
+import { Creator } from '@/payload-types.js'
 
 const createPayload = async () => {
   const payloadConfig = await config
@@ -13,7 +13,7 @@ const createPayload = async () => {
 dotenv.config()
 
 const TMDB_TOKEN = process.env.MOVIE_DB_API
-console.log('SCRIPT FOR ADD MOVIES YEARS IS TRIGGERING')
+console.log(TMDB_TOKEN)
 
 if (!TMDB_TOKEN) {
   throw new Error('Missing MOVIE_DB_API env var')
@@ -86,7 +86,7 @@ const fetchMovieData = async (page: number): Promise<TMDBDiscoverResponse> => {
   return withRetry(
     async () => {
       const res = await fetch(
-        `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&primary_release_year=2024&sort_by=popularity.desc`,
+        `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&primary_release_year=2025&sort_by=popularity.desc`,
         options,
       )
 

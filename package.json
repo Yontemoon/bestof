@@ -1,7 +1,7 @@
 {
   "name": "bestof",
   "version": "1.0.0",
-  "description": "A blank template to get started with Payload 3.0",
+  "description": "Bestof is a web application built with Next.js and Payload CMS, designed to provide users with a curated selection of the best content across various categories.",
   "license": "MIT",
   "type": "module",
   "scripts": {
@@ -23,11 +23,10 @@
     "@payloadcms/richtext-lexical": "3.70.0",
     "@payloadcms/ui": "3.70.0",
     "cross-env": "^7.0.3",
-    "dotenv": "16.4.7",
+    "dotenv": "17.3.1",
     "graphql": "^16.8.1",
     "next": "15.4.10",
     "payload": "3.70.0",
-    "pg": "^8.18.0",
     "react": "19.2.1",
     "react-dom": "19.2.1",
     "sharp": "0.34.2"

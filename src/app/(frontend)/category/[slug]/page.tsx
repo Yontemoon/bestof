@@ -1,5 +1,5 @@
 import { createPayload } from '@/utils/payload'
-import Link from 'next/link'
+import Link from '@/components/ui/link'
 import React from 'react'
 
 const ContentPage = async ({ params }: { params: Promise<{ slug: string }> }) => {

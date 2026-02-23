@@ -1,6 +1,6 @@
 import { createPayload } from '@/utils/payload'
 import React from 'react'
-import Link from 'next/link'
+import Link from '@/components/ui/link'
 
 type PropTypes = {
   slug: string

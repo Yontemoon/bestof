@@ -1,7 +1,9 @@
 import React from 'react'
-import Link from 'next/link'
+
+import Link from '@/components/ui/link'
 import './styles.css'
 import { createPayload } from '@/utils/payload'
+import { JSX } from 'react'
 
 export default async function HomePage() {
   const payload = await createPayload()
@@ -12,16 +14,23 @@ export default async function HomePage() {
 
   return (
     <div className="container mx-auto">
-      {list.docs.map((doc) => {
-        return (
-          <div key={doc.id}>
-            {typeof doc.author === 'object' && doc.author && 'id' in doc.author && (
-              <Link href={`/author/${doc.author.id}/${doc.author.slug}`}>{doc.author.name}</Link>
-            )}
-            <Link href={`/list/${doc.id}/${doc.slug}`}> {doc.parent_title}</Link>
-          </div>
-        )
-      })}
+      <h2>Latest Lists Added</h2>
+      <ul className="space-y-5">
+        {list.docs.map((doc) => {
+          return (
+            <li key={doc.id} className="flex flex-col space-y-0.5">
+              <Link href={`/list/${doc.id}/${doc.slug}`}>
+                <span className="text-lg"> {doc.parent_title}</span>
+              </Link>
+
+              {typeof doc.author === 'object' && doc.author && 'id' in doc.author && (
+                <span> {doc.author.name}</span>
+              )}
+              <span>{doc.createdAt}</span>
+            </li>
+          )
+        })}
+      </ul>
     </div>
   )
 }

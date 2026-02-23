@@ -1,7 +1,7 @@
 import React from 'react'
 import { redirect } from 'next/navigation'
 import { createPayload } from '@/utils/payload'
-import Link from 'next/link'
+import Link from '@/components/ui/link'
 
 const ContentPage = async ({ params }: { params: Promise<{ id: string; slug: string }> }) => {
   const { id: paramId, slug: paramSlug } = await params

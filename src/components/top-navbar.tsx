@@ -1,5 +1,5 @@
 import { createPayload } from '@/utils/payload'
-import Link from 'next/link'
+import Link from '@/components/ui/link'
 import React from 'react'
 
 const TopNavbar = async () => {
@@ -19,7 +19,7 @@ const TopNavbar = async () => {
     })
 
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between flex-row container w-full mx-auto py-4">
       <Link href="/">
         <span>Best Of</span>
       </Link>

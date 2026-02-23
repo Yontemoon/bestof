@@ -1,6 +1,6 @@
 import React from 'react'
 import { createPayload } from '@/utils/payload'
-import Link from 'next/link'
+import Link from '@/components/ui/link'
 import { redirect } from 'next/navigation'
 
 const ListPage = async ({ params }: { params: Promise<{ id: string; slug: string }> }) => {

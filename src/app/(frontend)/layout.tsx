@@ -1,5 +1,6 @@
 import React from 'react'
 import TopNavbar from '@/components/top-navbar'
+import Footer from '@/components/footer'
 
 export const metadata = {
   description: 'Best of',
@@ -13,7 +14,8 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
     <html lang="en">
       <body>
         <TopNavbar />
-        <main>{children}</main>
+        <main className=" min-h-[80vh] h-screen mx-20 px-7 py-7">{children}</main>
+        <Footer />
       </body>
     </html>
   )

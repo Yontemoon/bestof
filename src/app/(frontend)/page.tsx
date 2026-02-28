@@ -3,7 +3,6 @@ import React from 'react'
 import Link from '@/components/ui/link'
 import './styles.css'
 import { createPayload } from '@/utils/payload'
-import { JSX } from 'react'
 
 export default async function HomePage() {
   const payload = await createPayload()

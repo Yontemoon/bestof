@@ -18,23 +18,23 @@ const ListPage = async ({ params }: { params: Promise<{ id: string; slug: string
   }
 
   return (
-    <div>
+    <div className="px-3 py-5">
       <h1>{data.parent_title}</h1>
       <h2>
         {typeof data.author === 'object' && data.author && 'id' in data.author && (
           <Link href={`/author/${data.author.id}/${data.author.slug}`}>{data.author.name}</Link>
         )}
       </h2>
-      <div>
+      <>
         {data.parent_list?.map((list) => {
           return (
-            <div key={list.id}>
+            <div key={list.id} className="space-y-4 py-7 px-5">
               {list.list_title && <h1>{list.list_title}</h1>}
               {list.description && <h3>{list.description}</h3>}
               <div className="space-y-4">
                 {list.list_entry?.map((list_entry, index) => {
                   return (
-                    <div key={list_entry.id || index}>
+                    <div key={list_entry.id || index} className="px-3">
                       {typeof list_entry.content === 'object' && list_entry.content && (
                         <ContentComp contentData={list_entry.content} />
                       )}
@@ -45,7 +45,7 @@ const ListPage = async ({ params }: { params: Promise<{ id: string; slug: string
             </div>
           )
         })}
-      </div>
+      </>
     </div>
   )
 }

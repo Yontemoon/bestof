@@ -1,3 +1,10 @@
+import { clsx, type ClassValue } from 'clsx'
+import { twMerge } from 'tailwind-merge'
+
+function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
+
 const slugify = (str: string) => {
   return str
     .toLowerCase()
@@ -19,4 +26,4 @@ const beforeChangeSlugify = <K extends keyof SlugSource>(data: SlugSource, key: 
   return data
 }
 
-export { slugify, beforeChangeSlugify }
+export { slugify, beforeChangeSlugify, cn }

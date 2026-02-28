@@ -13,7 +13,7 @@ export default async function HomePage() {
   })
 
   return (
-    <div className="container mx-auto">
+    <div className="">
       <h2>Latest Lists Added</h2>
       <ul className="space-y-5">
         {list.docs.map((doc) => {
@@ -26,7 +26,7 @@ export default async function HomePage() {
               {typeof doc.author === 'object' && doc.author && 'id' in doc.author && (
                 <span> {doc.author.name}</span>
               )}
-              <span>{doc.createdAt}</span>
+              {/* <span>{formatData(doc.createdAt)}</span> */}
             </li>
           )
         })}

@@ -25,7 +25,6 @@ export default async function HomePage() {
               {typeof doc.author === 'object' && doc.author && 'id' in doc.author && (
                 <span> {doc.author.name}</span>
               )}
-              {/* <span>{formatData(doc.createdAt)}</span> */}
             </li>
           )
         })}

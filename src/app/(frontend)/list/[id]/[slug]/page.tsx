@@ -18,17 +18,20 @@ const ListPage = async ({ params }: { params: Promise<{ id: string; slug: string
   }
 
   return (
-    <div className="px-3 py-5">
+    <div className="px-3 py-5 space-y-1">
       <h1>{data.parent_title}</h1>
-      <h2>
+      <span className="mb-4">
         {typeof data.author === 'object' && data.author && 'id' in data.author && (
-          <Link href={`/author/${data.author.id}/${data.author.slug}`}>{data.author.name}</Link>
+          <span className="text-sm">
+            Written by:{' '}
+            <Link href={`/author/${data.author.id}/${data.author.slug}`}>{data.author.name}</Link>
+          </span>
         )}
-      </h2>
+      </span>
       <>
         {data.parent_list?.map((list) => {
           return (
-            <div key={list.id} className="space-y-4 py-7 px-5">
+            <div key={list.id} className="space-y-4 py-3 px-5">
               {list.list_title && <h1>{list.list_title}</h1>}
               {list.description && <h3>{list.description}</h3>}
               <div className="space-y-4">

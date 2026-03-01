@@ -45,8 +45,13 @@ export const Creator: CollectionConfig = {
         hidden: true,
       },
       type: 'text',
-      // required: true,
       unique: true,
+    },
+    {
+      name: 'related_content',
+      type: 'join',
+      collection: 'Content',
+      on: 'creator',
     },
     {
       name: 'related_list',

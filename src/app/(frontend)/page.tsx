@@ -3,6 +3,7 @@ import React from 'react'
 import Link from '@/components/ui/link'
 import './styles.css'
 import { createPayload } from '@/utils/payload'
+import type { Publisher } from '@/payload-types'
 
 export default async function HomePage() {
   const payload = await createPayload()
@@ -10,6 +11,7 @@ export default async function HomePage() {
   const list = await payload.find({
     collection: 'List',
   })
+  console.log(list)
 
   return (
     <div className="">
@@ -25,6 +27,10 @@ export default async function HomePage() {
               {typeof doc.author === 'object' && doc.author && 'id' in doc.author && (
                 <span> {doc.author.name}</span>
               )}
+              {!doc.author &&
+                typeof doc.publisher === 'object' &&
+                doc.publisher &&
+                'id' in doc.publisher && <span>{doc.publisher.name}</span>}
             </li>
           )
         })}

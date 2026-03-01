@@ -2,6 +2,7 @@ import React from 'react'
 import TopNavbar from '@/components/top-navbar'
 import Footer from '@/components/footer'
 import { Inter } from 'next/font/google'
+import { ThemeProvider } from '@/providers/theme'
 
 export const metadata = {
   description: 'Best of',
@@ -17,13 +18,20 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
 
   return (
-    <html lang="en" className={inter.className}>
+    <html lang="en" className={inter.className} suppressHydrationWarning>
       <body>
-        <TopNavbar />
-        <main className="min-h-[80vh] px-7 py-7 mx-auto container w-full max-w-4xl">
-          {children}
-        </main>
-        <Footer />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <TopNavbar />
+          <main className="min-h-[80vh] px-7 py-7 mx-auto container w-full max-w-4xl">
+            {children}
+          </main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   )

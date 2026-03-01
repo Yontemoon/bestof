@@ -1,6 +1,7 @@
 // import { createPayload } from '@/utils/payload'
 import Link from '@/components/ui/link'
 import React from 'react'
+import { ThemeToggle } from './theme-toggle'
 
 const TopNavbar = async () => {
   // const payload = await createPayload()
@@ -19,7 +20,7 @@ const TopNavbar = async () => {
   //   })
 
   return (
-    <div className="flex justify-between flex-row container w-full mx-auto py-4 items-center">
+    <div className="flex justify-between flex-row container w-full px-4 py-4 items-center mx-auto">
       <Link href="/">
         <span>Best Of</span>
       </Link>
@@ -32,6 +33,7 @@ const TopNavbar = async () => {
           </div>
         )
       })} */}
+      <ThemeToggle />
     </div>
   )
 }

@@ -20,7 +20,9 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
     <html lang="en" className={inter.className}>
       <body>
         <TopNavbar />
-        <main className="min-h-[80vh] px-7 py-7 mx-auto container w-screen">{children}</main>
+        <main className="min-h-[80vh] px-7 py-7 mx-auto container w-full max-w-4xl">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

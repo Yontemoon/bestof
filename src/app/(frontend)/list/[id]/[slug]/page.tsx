@@ -20,7 +20,7 @@ const ListPage = async ({ params }: { params: Promise<{ id: string; slug: string
   console.log(data)
 
   return (
-    <div className="px-3 py-5 space-y-1">
+    <div className="px-3 py-5 space-y-1 ">
       <h1>{data.parent_title}</h1>
       <span className="mb-4">
         {typeof data.author === 'object' && data.author && 'id' in data.author && (

@@ -6,10 +6,17 @@ import Link from '@/components/ui/link'
 const ContentPage = async ({ params }: { params: Promise<{ id: string; slug: string }> }) => {
   const { id: paramId, slug: paramSlug } = await params
   const payload = await createPayload()
-  const { related_list, slug, id } = await payload.findByID({
-    collection: 'Content',
-    id: paramId,
-  })
+
+  const [contentDetails, { related_list, slug, id }] = await Promise.all([
+    await payload.findByID({
+      collection: 'Content',
+      id: paramId,
+    }),
+    await payload.findByID({
+      collection: 'Content',
+      id: paramId,
+    }),
+  ])
 
   if (!related_list || !related_list.docs) {
     return <div>Nothing here.</div>
@@ -61,6 +68,7 @@ const ContentPage = async ({ params }: { params: Promise<{ id: string; slug: str
 
   return (
     <div>
+      <h1 className="mb-5">{contentDetails.title}</h1>
       {list.map((item, index) => {
         return (
           <div key={index}>

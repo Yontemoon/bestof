@@ -42,18 +42,17 @@ const ListPage = async ({ params }: { params: Promise<{ id: string; slug: string
               {list.description && <h3>{list.description}</h3>}
               <ListComp className="space-y-4" isOrdered={isOrdered}>
                 {list.list_entry?.map((list_entry, index) => {
-                  return (
-                    <>
-                      {typeof list_entry.content === 'object' && list_entry.content && (
-                        <ContentComp
-                          key={list_entry.id || index}
-                          contentData={list_entry.content}
-                          index={index}
-                          is_ordered={list.is_ordered}
-                        />
-                      )}
-                    </>
-                  )
+                  if (list_entry.content && typeof list_entry.content === 'object') {
+                    return (
+                      <ContentComp
+                        key={list_entry.id || index}
+                        contentData={list_entry.content}
+                        index={index}
+                        is_ordered={list.is_ordered}
+                      />
+                    )
+                  }
+                  return null
                 })}
               </ListComp>
             </div>

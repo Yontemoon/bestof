@@ -7,7 +7,7 @@ export const List: CollectionConfig = {
   hooks: {
     beforeChange: [
       async ({ data, req }) => {
-        if (!data.parent_title || !data.author) return data
+        if (!data.parent_title) return data
 
         const payload = req.payload
 
@@ -19,11 +19,11 @@ export const List: CollectionConfig = {
               })
             : data.author
 
-        const authorSlug = slugify(authorDoc?.name)
+        const authorSlug = slugify(authorDoc?.name || '')
 
         const parentSlug = slugify(data.parent_title)
 
-        data.slug = `${authorSlug}-${parentSlug}`
+        data.slug = authorSlug ? `${authorSlug}-${parentSlug}` : parentSlug
 
         return data
       },

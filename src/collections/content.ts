@@ -11,9 +11,6 @@ const beforeChangeHook: CollectionBeforeChangeHook<ContentType> = ({ data }) => 
 
 export const Content: CollectionConfig = {
   slug: 'Content',
-  hooks: {
-    beforeChange: [beforeChangeHook],
-  },
   admin: {
     useAsTitle: 'title',
   },
@@ -78,4 +75,7 @@ export const Content: CollectionConfig = {
       on: 'parent_list.list_entry.content',
     },
   ],
+  hooks: {
+    beforeChange: [beforeChangeHook],
+  },
 }

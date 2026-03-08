@@ -89,7 +89,7 @@ export interface Config {
       related_list: 'List';
     };
     creator: {
-      related_list: 'List';
+      related_content: 'Content';
     };
     author: {
       related_lists: 'List';
@@ -260,8 +260,8 @@ export interface Creator {
   slug: string;
   category: string | Category;
   unique_id?: string | null;
-  related_list?: {
-    docs?: (number | List)[];
+  related_content?: {
+    docs?: (number | Content)[];
     hasNextPage?: boolean;
     totalDocs?: number;
   };
@@ -447,7 +447,7 @@ export interface CreatorSelect<T extends boolean = true> {
   slug?: T;
   category?: T;
   unique_id?: T;
-  related_list?: T;
+  related_content?: T;
   updatedAt?: T;
   createdAt?: T;
 }

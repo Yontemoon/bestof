@@ -18,6 +18,8 @@ const ContentPage = async ({ params }: { params: Promise<{ id: string; slug: str
     }),
   ])
 
+  console.log(contentDetails)
+
   if (!related_list || !related_list.docs) {
     return <div>Nothing here.</div>
   }

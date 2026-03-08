@@ -27,7 +27,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
           disableTransitionOnChange
         >
           <TopNavbar />
-          <main className="min-h-[80vh] px-7 py-7 mx-auto container w-full max-w-4xl">
+          <main className="min-h-[80vh] px-7 py-7 mx-auto container w-full max-w-150">
             {children}
           </main>
           <Footer />

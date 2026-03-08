@@ -52,12 +52,7 @@ export const Creator: CollectionConfig = {
       type: 'join',
       collection: 'Content',
       on: 'creator',
-    },
-    {
-      name: 'related_list',
-      type: 'join',
-      collection: 'List',
-      on: 'parent_list.list_entry.content',
+      maxDepth: 10,
     },
   ],
 }

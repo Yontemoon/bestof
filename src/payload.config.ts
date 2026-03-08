@@ -20,13 +20,13 @@ import {
 import { Nav, YearNavbar } from './globals'
 
 import dotenv from 'dotenv'
-dotenv.config({
-  path: path.resolve(__dirname, '../.env'),
-  quiet: true,
-})
-
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+
+dotenv.config({
+  path: path.resolve(dirname, '../.env'),
+  quiet: true,
+})
 
 export default buildConfig({
   admin: {

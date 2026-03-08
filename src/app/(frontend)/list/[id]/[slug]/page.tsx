@@ -22,24 +22,35 @@ const ListPage = async ({ params }: { params: Promise<{ id: string; slug: string
   return (
     <div className="px-3 py-5 space-y-1 ">
       <h1>{data.parent_title}</h1>
-      <span className="mb-4">
+      <div className="mb-4 flex flex-col space-y-2 text-sm">
         {typeof data.author === 'object' && data.author && 'id' in data.author && (
-          <span className="text-sm">
+          <div className="">
             Written by:{' '}
             <Link href={`/author/${data.author.id}/${data.author.slug}`}>{data.author.name}</Link>
-          </span>
+          </div>
         )}
-      </span>
-      <div className="text-sm">
-        {data.publish_date && <span>{new Date(data.publish_date).toLocaleDateString()}</span>}
+        {data.list_link && (
+          <div className="hover:underline">
+            <a className="text-sm" href={data.list_link}>
+              External Link
+            </a>
+          </div>
+        )}
+
+        {data.publish_date && (
+          <div>Published in: {new Date(data.publish_date).toLocaleDateString()}</div>
+        )}
       </div>
+
       <>
         {data.parent_list?.map((list) => {
           const isOrdered = list.is_ordered
           return (
-            <div key={list.id} className="space-y-4 py-3 px-5">
+            <div key={list.id} className="space-y-4 py-3">
               {list.list_title && <h1>{list.list_title}</h1>}
-              {list.description && <h3>{list.description}</h3>}
+              {list.description && (
+                <h3 className="text-sm text-foreground/50">{list.description}</h3>
+              )}
               <ListComp className="space-y-4" isOrdered={isOrdered}>
                 {list.list_entry?.map((list_entry, index) => {
                   if (list_entry.content && typeof list_entry.content === 'object') {
@@ -89,9 +100,9 @@ const ContentComp = ({
   is_ordered: boolean
 }) => {
   return (
-    <li className="flex flex-col px-3">
+    <li className="flex flex-col">
       <Link href={`/content/${contentData.id}/${contentData.slug}`}>
-        <h3 className="text-2xl font-extrabold">
+        <h3 className="text-xl font-extrabold">
           {is_ordered && <span>{index + 1}. </span>}
 
           {contentData.title}

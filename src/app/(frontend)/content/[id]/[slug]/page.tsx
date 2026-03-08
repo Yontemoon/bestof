@@ -7,16 +7,11 @@ const ContentPage = async ({ params }: { params: Promise<{ id: string; slug: str
   const { id: paramId, slug: paramSlug } = await params
   const payload = await createPayload()
 
-  const [contentDetails, { related_list, slug, id }] = await Promise.all([
-    await payload.findByID({
-      collection: 'Content',
-      id: paramId,
-    }),
-    await payload.findByID({
-      collection: 'Content',
-      id: paramId,
-    }),
-  ])
+  const contentDetails = await payload.findByID({
+    collection: 'Content',
+    id: paramId,
+  })
+  const { related_list, slug, id } = contentDetails
 
   console.log(contentDetails)
 
@@ -33,7 +28,21 @@ const ContentPage = async ({ params }: { params: Promise<{ id: string; slug: str
   const list = removedNum
     .flatMap((doc) => {
       return doc.parent_list?.map((list) => {
-        const index = list.list_entry?.findIndex((entry) => entry.content === Number(id))
+        if (
+          !list.list_entry ||
+          typeof list.list_entry[0].content === 'number' ||
+          typeof list.list_entry[0].content !== 'object'
+        ) {
+          return undefined
+        }
+        const index = list.list_entry?.findIndex(
+          (entry) =>
+            typeof entry !== 'number' &&
+            entry.content &&
+            typeof entry.content !== 'number' &&
+            entry.content.id &&
+            entry.content.id === Number(id),
+        )
         if (index === -1 || index === undefined) {
           return undefined
         }
@@ -67,6 +76,7 @@ const ContentPage = async ({ params }: { params: Promise<{ id: string; slug: str
     }
     return curr.rank - prev.rank
   })
+  console.log(list)
 
   return (
     <div>

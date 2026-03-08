@@ -73,7 +73,7 @@ export const Content: CollectionConfig = {
       type: 'join',
       collection: 'List',
       on: 'parent_list.list_entry.content',
-      maxDepth: 2,
+      maxDepth: 3,
     },
   ],
   hooks: {

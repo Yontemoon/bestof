@@ -3,7 +3,7 @@ import { createPayload } from '@/utils/payload'
 import Link from '@/components/ui/link'
 import { redirect } from 'next/navigation'
 import type { Content } from '@/payload-types'
-import { cn } from '@/lib/utils'
+import { cn, formatDate } from '@/lib/utils'
 
 const ListPage = async ({ params }: { params: Promise<{ id: string; slug: string }> }) => {
   const { id, slug } = await params
@@ -13,11 +13,14 @@ const ListPage = async ({ params }: { params: Promise<{ id: string; slug: string
     collection: 'List',
     id: id,
   })
+  console.log(data)
 
   if (data.slug !== slug) {
     redirect(`/list/${data.id}/${data.slug}`)
   }
-  console.log(data)
+
+  const publisherName =
+    data.publisher && typeof data.publisher !== 'number' ? data.publisher?.name : null
 
   return (
     <div className="px-3 py-5 space-y-1 ">
@@ -25,20 +28,19 @@ const ListPage = async ({ params }: { params: Promise<{ id: string; slug: string
       <div className="mb-4 flex flex-col space-y-2 text-sm">
         {typeof data.author === 'object' && data.author && 'id' in data.author && (
           <div className="">
-            Written by:{' '}
+            {data.publish_date && <span>{formatDate(new Date(data.publish_date))}</span>} /{' '}
             <Link href={`/author/${data.author.id}/${data.author.slug}`}>{data.author.name}</Link>
+            {data.list_link && publisherName && (
+              <span>
+                , as published from{' '}
+                {
+                  <a className="text-sm hover:underline" href={data.list_link}>
+                    {publisherName}
+                  </a>
+                }
+              </span>
+            )}
           </div>
-        )}
-        {data.list_link && (
-          <div className="hover:underline">
-            <a className="text-sm" href={data.list_link}>
-              External Link
-            </a>
-          </div>
-        )}
-
-        {data.publish_date && (
-          <div>Published in: {new Date(data.publish_date).toLocaleDateString()}</div>
         )}
       </div>
 

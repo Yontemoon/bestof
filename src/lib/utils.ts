@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
+import { format } from 'date-fns'
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -26,4 +27,8 @@ const beforeChangeSlugify = <K extends keyof SlugSource>(data: SlugSource, key: 
   return data
 }
 
-export { slugify, beforeChangeSlugify, cn }
+const formatDate = (dateStr: Date) => {
+  return format(dateStr, 'PPP')
+}
+
+export { slugify, beforeChangeSlugify, cn, formatDate }

@@ -28,13 +28,6 @@ const ContentPage = async ({ params }: { params: Promise<{ id: string; slug: str
   const list = removedNum
     .flatMap((doc) => {
       return doc.parent_list?.map((list) => {
-        if (
-          !list.list_entry ||
-          typeof list.list_entry[0].content === 'number' ||
-          typeof list.list_entry[0].content !== 'object'
-        ) {
-          return undefined
-        }
         const index = list.list_entry?.findIndex(
           (entry) =>
             typeof entry !== 'number' &&
@@ -72,11 +65,10 @@ const ContentPage = async ({ params }: { params: Promise<{ id: string; slug: str
       return -1
     }
     if (curr?.rank === null || prev?.rank === null) {
-      return -1
+      return 1
     }
     return curr.rank - prev.rank
   })
-  console.log(list)
 
   return (
     <div>

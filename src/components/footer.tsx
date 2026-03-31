@@ -6,9 +6,12 @@ const Footer = () => {
     <footer>
       <div className="container mx-auto py-4 text-center">
         <div>Best of</div>
-        <div>
+        <div className="flex flex-col">
           <Link href={'/about'}>
             <span>About</span>
+          </Link>
+          <Link href={'/publishers'}>
+            <span>All Publishers</span>
           </Link>
         </div>
       </div>

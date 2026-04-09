@@ -11,6 +11,16 @@ const nextConfig = {
     }
     return webpackConfig
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'rpzsmirhlgtosulbaqah.supabase.co',
+        port: '',
+        pathname: '**',
+      },
+    ],
+  },
 }
 
 export default withPayload(nextConfig, { devBundleServerPackages: false })

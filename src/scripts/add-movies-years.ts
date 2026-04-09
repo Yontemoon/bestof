@@ -34,6 +34,7 @@ type TMDBDiscoverResponse = {
   total_pages: number
   results: Array<{
     id: number
+    poster_path: null | string
     title: string
   }>
 }
@@ -238,6 +239,9 @@ const startFetchMovieScripts = async () => {
           data: {
             category: 'movies',
             id: movie.id,
+            poster_url: movie.poster_path
+              ? `https://image.tmdb.org/t/p/original${movie.poster_path}`
+              : null,
             title: movie.title,
             slug: slugify(`${movie.title}`),
             unique_id: movie.id.toString(),

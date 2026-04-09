@@ -47,6 +47,11 @@ export const Content: CollectionConfig = {
       },
     },
     {
+      name: 'poster_url',
+      type: 'text',
+      required: false,
+    },
+    {
       name: 'creator',
       type: 'relationship',
       relationTo: 'creator',

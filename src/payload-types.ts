@@ -241,6 +241,7 @@ export interface Content {
   category: string | Category;
   unique_id?: string | null;
   slug: string;
+  poster_url?: string | null;
   creator: (number | Creator)[];
   related_list?: {
     docs?: (number | List)[];
@@ -433,6 +434,7 @@ export interface ContentSelect<T extends boolean = true> {
   category?: T;
   unique_id?: T;
   slug?: T;
+  poster_url?: T;
   creator?: T;
   related_list?: T;
   updatedAt?: T;

@@ -20,7 +20,7 @@ const TopNavbar = async () => {
   //   })
 
   return (
-    <div className="flex justify-between flex-row container w-full px-4 py-4 items-center mx-auto">
+    <div className="flex justify-between flex-row container w-full px-7 py-7 items-center mx-auto max-w-150">
       <Link href="/">
         <span>Best Of</span>
       </Link>

@@ -51,3 +51,6 @@ node_modules/
 
 
 /src/scripts/
+!/src/scripts/
+/src/scripts/*
+!/src/scripts/sync-movie-posters.ts

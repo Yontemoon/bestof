@@ -4,6 +4,8 @@ import Link from '@/components/ui/link'
 import { redirect } from 'next/navigation'
 import type { Content } from '@/payload-types'
 import { cn, formatDate } from '@/lib/utils'
+import Image from 'next/image'
+import ImageList from '@/components/image-list'
 
 const ListPage = async ({ params }: { params: Promise<{ id: string; slug: string }> }) => {
   const { id, slug } = await params
@@ -17,7 +19,7 @@ const ListPage = async ({ params }: { params: Promise<{ id: string; slug: string
   if (data.slug !== slug) {
     redirect(`/list/${data.id}/${data.slug}`)
   }
-
+  console.log(data.parent_list)
   const publisherName =
     data.publisher && typeof data.publisher !== 'number' ? data.publisher?.name : null
 
@@ -101,25 +103,34 @@ const ContentComp = ({
   is_ordered: boolean
 }) => {
   return (
-    <li className="flex flex-col">
-      <Link href={`/content/${contentData.id}/${contentData.slug}`}>
-        <h3 className="text-xl font-extrabold">
-          {is_ordered && <span>{index + 1}. </span>}
+    <li className="flex gap-4">
+      {contentData.poster_url && (
+        <div className="shrink-0">
+          <Link href={`/content/${contentData.id}/${contentData.slug}`}>
+            <ImageList contentData={contentData} />
+          </Link>
+        </div>
+      )}
+      <div className="flex flex-col">
+        <Link href={`/content/${contentData.id}/${contentData.slug}`}>
+          <h3 className="text-xl font-extrabold">
+            {is_ordered && <span>{index + 1}. </span>}
 
-          {contentData.title}
-        </h3>
-      </Link>
-      {Array.isArray(contentData.creator) &&
-        contentData.creator.map((creator) => {
-          if (typeof creator === 'object' && creator !== null) {
-            return (
-              <Link key={creator.id} href={`/creator/${creator.id}/${creator.slug}`}>
-                <h4>{creator.creator}</h4>
-              </Link>
-            )
-          }
-          return null
-        })}
+            {contentData.title}
+          </h3>
+        </Link>
+        {Array.isArray(contentData.creator) &&
+          contentData.creator.map((creator) => {
+            if (typeof creator === 'object' && creator !== null) {
+              return (
+                <Link key={creator.id} href={`/creator/${creator.id}/${creator.slug}`}>
+                  <h4>{creator.creator}</h4>
+                </Link>
+              )
+            }
+            return null
+          })}
+      </div>
     </li>
   )
 }

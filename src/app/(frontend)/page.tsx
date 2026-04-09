@@ -3,15 +3,24 @@ import React from 'react'
 import Link from '@/components/ui/link'
 import './styles.css'
 import { createPayload } from '@/utils/payload'
-import type { Publisher } from '@/payload-types'
+// import type { Publisher } from '@/payload-types'
 
-export default async function HomePage() {
+type HomePageProps = {
+  searchParams?: Promise<{
+    page?: string
+  }>
+}
+
+export default async function HomePage({ searchParams }: HomePageProps) {
+  const resolvedSearchParams = await searchParams
+  const currentPage = Math.max(1, Number(resolvedSearchParams?.page) || 1)
   const payload = await createPayload()
 
   const list = await payload.find({
     collection: 'List',
+    limit: 20,
+    page: currentPage,
   })
-  console.log(list)
 
   return (
     <div className="">
@@ -35,6 +44,13 @@ export default async function HomePage() {
           )
         })}
       </ul>
+      <div className="mt-6 flex items-center gap-4">
+        {list.hasPrevPage && <Link href={`/?page=${currentPage - 1}`}>Previous</Link>}
+        <span>
+          Page {list.page} of {list.totalPages}
+        </span>
+        {list.hasNextPage && <Link href={`/?page=${currentPage + 1}`}>Next</Link>}
+      </div>
     </div>
   )
 }

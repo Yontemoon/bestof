@@ -2,6 +2,7 @@ import React from 'react'
 import { redirect } from 'next/navigation'
 import { createPayload } from '@/utils/payload'
 import Link from '@/components/ui/link'
+import ImageList from '@/components/image-list'
 
 const ContentPage = async ({ params }: { params: Promise<{ id: string; slug: string }> }) => {
   const { id: paramId, slug: paramSlug } = await params
@@ -72,6 +73,7 @@ const ContentPage = async ({ params }: { params: Promise<{ id: string; slug: str
 
   return (
     <div>
+      {contentDetails.poster_url && <ImageList contentData={contentDetails} />}
       <h1 className="mb-5">{contentDetails.title}</h1>
       {list.map((item, index) => {
         return (

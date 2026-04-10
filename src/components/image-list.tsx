@@ -8,13 +8,13 @@ type PropTypes = {
 
 const ImageList = ({ contentData }: PropTypes) => {
   return (
-    <div>
+    <div className="relative h-full w-full">
       {contentData.title && contentData.poster_url && (
         <Image
           alt={`${contentData.title} poster`}
-          width={200}
-          height={400}
-          className="h-32 w-24 rounded-md object-cover"
+          fill
+          sizes="100%"
+          className="rounded-md object-cover"
           loading="lazy"
           src={contentData.poster_url}
         />

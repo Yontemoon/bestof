@@ -1,9 +1,7 @@
 import React from 'react'
-
 import Link from '@/components/ui/link'
 import './styles.css'
 import { createPayload } from '@/utils/payload'
-// import type { Publisher } from '@/payload-types'
 
 type HomePageProps = {
   searchParams?: Promise<{
@@ -29,22 +27,25 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         {list.docs.map((doc) => {
           return (
             <li key={doc.id} className="flex flex-col space-y-0.5">
-              <Link href={`/list/${doc.id}/${doc.slug}`}>
-                <span className="text-lg"> {doc.parent_title}</span>
-              </Link>
+              <span className="text-lg">
+                {' '}
+                <Link href={`/list/${doc.id}/${doc.slug}`}> {doc.parent_title} </Link>
+              </span>
 
               {typeof doc.author === 'object' && doc.author && 'id' in doc.author && (
-                <span> {doc.author.name}</span>
+                <span className="text-muted-foreground"> {doc.author.name}</span>
               )}
               {!doc.author &&
                 typeof doc.publisher === 'object' &&
                 doc.publisher &&
-                'id' in doc.publisher && <span>{doc.publisher.name}</span>}
+                'id' in doc.publisher && (
+                  <span className="text-muted-foreground">{doc.publisher.name}</span>
+                )}
             </li>
           )
         })}
       </ul>
-      <div className="mt-6 flex items-center gap-4">
+      <div className="mt-6 flex items-center gap-4 ">
         {list.hasPrevPage && <Link href={`/?page=${currentPage - 1}`}>Previous</Link>}
         <span>
           Page {list.page} of {list.totalPages}

@@ -1,18 +1,22 @@
 import Link from '@/components/ui/link'
 import React from 'react'
+import { Separator } from './ui/separator'
 
 const Footer = () => {
   return (
-    <footer>
-      <div className="container mx-auto py-4 text-center">
-        <div>Best of</div>
-        <div className="flex flex-col">
-          <Link href={'/about'}>
-            <span>About</span>
-          </Link>
-          <Link href={'/publishers'}>
-            <span>All Publishers</span>
-          </Link>
+    <footer className="space-y-5 mt-20">
+      <Separator />
+      <div>
+        <div className="flex flex-col gap-3 text-sm ">
+          <span className="transition-opacity hover:opacity-70">
+            {' '}
+            <Link href={'/about'}>About </Link>
+          </span>
+
+          <span className="transition-opacity hover:opacity-70">
+            {' '}
+            <Link href={'/publishers'}>All Publishers </Link>
+          </span>
         </div>
       </div>
     </footer>

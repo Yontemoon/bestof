@@ -2,6 +2,7 @@
 import Link from '@/components/ui/link'
 import React from 'react'
 import { ThemeToggle } from './theme-toggle'
+import { Separator } from './ui/separator'
 
 const TopNavbar = async () => {
   // const payload = await createPayload()
@@ -20,20 +21,23 @@ const TopNavbar = async () => {
   //   })
 
   return (
-    <div className="flex justify-between flex-row container w-full px-7 py-7 items-center mx-auto max-w-150">
-      <Link href="/">
-        <span>Best Of</span>
-      </Link>
+    <div className="space-y-5">
+      <div className="flex justify-between flex-row container w-full items-center ">
+        <Link href="/">
+          <span>Best Of</span>
+        </Link>
 
-      {/* Hide for now */}
-      {/* {filteredCategories.map((category) => {
+        {/* Hide for now */}
+        {/* {filteredCategories.map((category) => {
         return (
           <div key={category.id}>
             <Link href={`/category/${category.id}`}>{category.id}</Link>
           </div>
         )
       })} */}
-      <ThemeToggle />
+        <ThemeToggle />
+      </div>
+      <Separator className="border-green" />
     </div>
   )
 }

@@ -3,8 +3,9 @@ import TopNavbar from '@/components/top-navbar'
 import Footer from '@/components/footer'
 import { Inter } from 'next/font/google'
 import { ThemeProvider } from '@/providers/theme'
+import { Metadata } from 'next'
 
-export const metadata = {
+export const metadata: Metadata = {
   description: 'Best of',
   title: 'Curated list of the best stuff in media.',
 }
@@ -18,8 +19,8 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
 
   return (
-    <html lang="en" className={inter.className} suppressHydrationWarning>
-      <body>
+    <html lang="en" suppressHydrationWarning className={inter.className}>
+      <body className="selection:bg-secondary mx-auto max-w-150 px-7 py-7 space-y-5 w-full">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -27,9 +28,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
           disableTransitionOnChange
         >
           <TopNavbar />
-          <main className="min-h-[80vh] px-7 py-7 mx-auto container w-full max-w-150">
-            {children}
-          </main>
+          <main className="min-h-[80vh]">{children}</main>
           <Footer />
         </ThemeProvider>
       </body>

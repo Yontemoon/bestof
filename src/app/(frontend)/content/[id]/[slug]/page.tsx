@@ -69,15 +69,38 @@ const ContentPage = async ({ params }: { params: Promise<{ id: string; slug: str
     return curr.rank - prev.rank
   })
 
+  const creators = Array.isArray(contentDetails.creator)
+    ? contentDetails.creator.filter(Boolean)
+    : contentDetails.creator
+      ? [contentDetails.creator]
+      : []
+
   return (
     <div>
       {contentDetails.poster_url && (
-        <div className="aspect-2/3 w-full overflow-hidden rounded-md">
+        <div className="aspect-2/3 w-full overflow-hidden">
           <ImageList contentData={contentDetails} />
         </div>
       )}
-      <h1 className="my-4">{contentDetails.title}</h1>
-      <span>by</span>
+      <div className="space-y-3">
+        <h1 className="">{contentDetails.title}</h1>
+        {creators.length > 0 && (
+          <div className="flex flex-wrap items-center text-sm text-muted-foreground">
+            <span>By</span>
+            {creators.map((creator) => {
+              if (typeof creator === 'number') {
+                return null
+              }
+              return (
+                <span key={creator.id} className="  px-1 py-1 leading-none">
+                  {creator.creator}
+                </span>
+              )
+            })}
+          </div>
+        )}
+      </div>
+
       <div className="space-y-2">
         {list.map((item, index) => {
           return (

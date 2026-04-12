@@ -120,7 +120,7 @@ const ContentComp = ({
     <li className="flex h-full flex-col gap-3">
       {contentData.poster_url ? (
         <Link href={`/content/${contentData.id}/${contentData.slug}`}>
-          <div className="mx-auto aspect-2/3 w-full max-w-48 overflow-hidden rounded-md">
+          <div className="mx-auto aspect-2/3 w-full max-w-48 overflow-hidden ">
             <ImageList contentData={contentData} />
           </div>
         </Link>

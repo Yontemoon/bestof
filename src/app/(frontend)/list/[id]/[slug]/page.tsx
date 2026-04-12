@@ -23,7 +23,7 @@ const ListPage = async ({ params }: { params: Promise<{ id: string; slug: string
     data.publisher && typeof data.publisher !== 'number' ? data.publisher?.name : null
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-6 sm:px-6 sm:py-8">
+    <div className="mx-auto w-full">
       <div className="space-y-8">
         <header className="space-y-3 border-b border-border pb-6">
           <h1 className="max-w-4xl text-3xl font-semibold tracking-tight sm:text-4xl">
@@ -31,16 +31,19 @@ const ListPage = async ({ params }: { params: Promise<{ id: string; slug: string
           </h1>
           <div className="text-sm leading-6 text-muted-foreground">
             {typeof data.author === 'object' && data.author && 'id' in data.author && (
-              <div className="flex flex-wrap items-center gap-x-2">
-                {data.publish_date && <span>{formatDate(new Date(data.publish_date))}</span>}
-                {data.publish_date && <span>/</span>}
+              <div className="flex flex-wrap items-center">
+                {data.publish_date && (
+                  <span>{formatDate(new Date(data.publish_date))}&nbsp;/&nbsp;</span>
+                )}
+
                 <Link href={`/author/${data.author.id}/${data.author.slug}`}>
                   {data.author.name}
                 </Link>
+
                 {data.list_link && publisherName && (
                   <>
-                    <span>, as published from</span>
-                    <a className="hover:underline" href={data.list_link}>
+                    <span>{', as published from'}</span>
+                    <a className="ml-1 hover:underline" href={data.list_link}>
                       {publisherName}
                     </a>
                   </>
@@ -130,7 +133,7 @@ const ContentComp = ({
           </Link>
         </h3>
 
-        <div className="space-y-1 text-sm leading-5 text-muted-foreground">
+        <div className="space-y-1 text-sm leading-5 text-muted-foreground ">
           {Array.isArray(contentData.creator) &&
             contentData.creator.map((creator) => {
               if (typeof creator === 'object' && creator !== null) {

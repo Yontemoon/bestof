@@ -1,6 +1,5 @@
 import React from 'react'
 import Link from '@/components/ui/link'
-import './styles.css'
 import { createPayload } from '@/utils/payload'
 
 type HomePageProps = {

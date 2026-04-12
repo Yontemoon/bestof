@@ -5,7 +5,7 @@ import { Separator } from './ui/separator'
 const Footer = () => {
   return (
     <footer className="space-y-5 mt-20">
-      <Separator />
+      <Separator className="border-secondary" />
       <div>
         <div className="flex flex-col gap-3 text-sm ">
           <span className="transition-opacity hover:opacity-70">

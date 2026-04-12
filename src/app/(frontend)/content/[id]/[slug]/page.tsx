@@ -14,8 +14,6 @@ const ContentPage = async ({ params }: { params: Promise<{ id: string; slug: str
   })
   const { related_list, slug, id } = contentDetails
 
-  console.log(contentDetails)
-
   if (!related_list || !related_list.docs) {
     return <div>Nothing here.</div>
   }
@@ -73,17 +71,24 @@ const ContentPage = async ({ params }: { params: Promise<{ id: string; slug: str
 
   return (
     <div>
-      {contentDetails.poster_url && <ImageList contentData={contentDetails} />}
-      <h1 className="mb-5">{contentDetails.title}</h1>
-      {list.map((item, index) => {
-        return (
-          <div key={index}>
-            <Link href={`/list/${item?.id}/${item?.slug}`}>
-              {item?.rank && `${item.rank}. `} {item?.title}
-            </Link>
-          </div>
-        )
-      })}
+      {contentDetails.poster_url && (
+        <div className="aspect-2/3 w-full overflow-hidden rounded-md">
+          <ImageList contentData={contentDetails} />
+        </div>
+      )}
+      <h1 className="my-4">{contentDetails.title}</h1>
+      <span>by</span>
+      <div className="space-y-2">
+        {list.map((item, index) => {
+          return (
+            <div key={index}>
+              <Link href={`/list/${item?.id}/${item?.slug}`}>
+                {item?.rank && `${item.rank}. `} {item?.title}
+              </Link>
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }

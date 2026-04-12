@@ -4,6 +4,7 @@ import Footer from '@/components/footer'
 import { Inter } from 'next/font/google'
 import { ThemeProvider } from '@/providers/theme'
 import { Metadata } from 'next'
+import './styles.css'
 
 export const metadata: Metadata = {
   description: 'Best of',

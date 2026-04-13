@@ -79,6 +79,7 @@ export const Content: CollectionConfig = {
       collection: 'List',
       on: 'parent_list.list_entry.content',
       maxDepth: 3,
+      defaultLimit: 2000,
     },
   ],
   hooks: {

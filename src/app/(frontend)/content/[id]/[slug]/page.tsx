@@ -12,9 +12,20 @@ const ContentPage = async ({ params }: { params: Promise<{ id: string; slug: str
     collection: 'Content',
     id: paramId,
   })
-  const { related_list, slug, id } = contentDetails
 
-  if (!related_list || !related_list.docs) {
+  const relatedLists = await payload.find({
+    collection: 'List',
+    pagination: false,
+    where: {
+      'parent_list.list_entry.content': {
+        equals: paramId,
+      },
+    },
+  })
+
+  const { slug, id } = contentDetails
+
+  if (!relatedLists.docs.length) {
     return <div>Nothing here.</div>
   }
 
@@ -22,7 +33,7 @@ const ContentPage = async ({ params }: { params: Promise<{ id: string; slug: str
     redirect(`/content/${id}/${slug}`)
   }
 
-  const removedNum = related_list?.docs.filter((list) => typeof list !== 'number')
+  const removedNum = relatedLists.docs.filter((list) => typeof list !== 'number')
 
   const list = removedNum
     .flatMap((doc) => {
@@ -82,7 +93,7 @@ const ContentPage = async ({ params }: { params: Promise<{ id: string; slug: str
           <ImageList contentData={contentDetails} />
         </div>
       )}
-      <div className="space-y-3">
+      <div className="space-y-3 my-3">
         <h1 className="">{contentDetails.title}</h1>
         {creators.length > 0 && (
           <div className="flex flex-wrap items-center text-sm text-muted-foreground">
@@ -93,7 +104,7 @@ const ContentPage = async ({ params }: { params: Promise<{ id: string; slug: str
               }
               return (
                 <span key={creator.id} className="  px-1 py-1 leading-none">
-                  {creator.creator}
+                  <Link href={`/creator/${creator.id}/${creator.slug}`}>{creator.creator}</Link>
                 </span>
               )
             })}

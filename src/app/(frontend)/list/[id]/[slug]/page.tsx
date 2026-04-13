@@ -35,18 +35,18 @@ const ListPage = async ({ params }: { params: Promise<{ id: string; slug: string
                 {data.publish_date && (
                   <span>{formatDate(new Date(data.publish_date))}&nbsp;/&nbsp;</span>
                 )}
-
-                <Link href={`/author/${data.author.id}/${data.author.slug}`}>
-                  {data.author.name}
-                </Link>
-
+                <span className="pr-1">
+                  <Link href={`/author/${data.author.id}/${data.author.slug}`}>
+                    {data.author.name},
+                  </Link>
+                </span>
                 {data.list_link && publisherName && (
-                  <>
-                    <span>{', as published from'}</span>
-                    <a className="ml-1 hover:underline" href={data.list_link}>
+                  <span>
+                    <>as published from</>
+                    <a className="pl-1 hover:underline" href={data.list_link}>
                       {publisherName}
                     </a>
-                  </>
+                  </span>
                 )}
               </div>
             )}

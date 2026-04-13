@@ -20,8 +20,8 @@ export default async function HomePage({ searchParams }: HomePageProps) {
   })
 
   return (
-    <div className="">
-      <h2>Latest Lists Added</h2>
+    <div className="space-y-3">
+      <h1>Latest Lists Added</h1>
       <ul className="space-y-5">
         {list.docs.map((doc) => {
           return (

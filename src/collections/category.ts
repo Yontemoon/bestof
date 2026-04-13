@@ -23,6 +23,7 @@ export const Category: CollectionConfig = {
       type: 'join',
       collection: 'List',
       on: 'category',
+      defaultLimit: 2000,
     },
   ],
 }

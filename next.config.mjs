@@ -12,6 +12,7 @@ const nextConfig = {
     return webpackConfig
   },
   images: {
+    minimumCacheTTL: 2678400,
     remotePatterns: [
       {
         protocol: 'https',

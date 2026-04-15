@@ -15,7 +15,7 @@ const ImageList = ({ contentData }: PropTypes) => {
           fill
           sizes="100%"
           className="object-cover"
-          loading="lazy"
+          // loading="lazy"
           src={contentData.poster_url}
         />
       )}

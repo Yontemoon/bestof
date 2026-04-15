@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import { createPayload } from '@/utils/payload'
 import Link from '@/components/ui/link'
 import ImageList from '@/components/image-list'
+import { sortPayloadList } from '@/lib/utils'
 
 const ContentPage = async ({ params }: { params: Promise<{ id: string; slug: string }> }) => {
   const { id: paramId, slug: paramSlug } = await params
@@ -33,52 +34,7 @@ const ContentPage = async ({ params }: { params: Promise<{ id: string; slug: str
     redirect(`/content/${id}/${slug}`)
   }
 
-  const removedNum = relatedLists.docs.filter((list) => typeof list !== 'number')
-
-  const list = removedNum
-    .flatMap((doc) => {
-      return doc.parent_list?.map((list) => {
-        const index = list.list_entry?.findIndex(
-          (entry) =>
-            typeof entry !== 'number' &&
-            entry.content &&
-            typeof entry.content !== 'number' &&
-            entry.content.id &&
-            entry.content.id === Number(id),
-        )
-        if (index === -1 || index === undefined) {
-          return undefined
-        }
-        if (list.is_ordered) {
-          return {
-            rank: index + 1,
-            title: doc.parent_title,
-            link: doc.list_link,
-            id: doc.id,
-            slug: doc.slug,
-          }
-        } else {
-          return {
-            rank: null,
-            title: doc.parent_title,
-            link: doc.list_link,
-            id: doc.id,
-            slug: doc.slug,
-          }
-        }
-      })
-    })
-    .filter((list) => list)
-
-  list?.sort((curr, prev) => {
-    if (!curr || !prev) {
-      return -1
-    }
-    if (curr?.rank === null || prev?.rank === null) {
-      return 1
-    }
-    return curr.rank - prev.rank
-  })
+  const sortedList = sortPayloadList(relatedLists, id)
 
   const creators = Array.isArray(contentDetails.creator)
     ? contentDetails.creator.filter(Boolean)
@@ -113,7 +69,7 @@ const ContentPage = async ({ params }: { params: Promise<{ id: string; slug: str
       </div>
 
       <div className="space-y-2">
-        {list.map((item, index) => {
+        {sortedList.map((item, index) => {
           return (
             <div key={index}>
               <Link href={`/list/${item?.id}/${item?.slug}`}>

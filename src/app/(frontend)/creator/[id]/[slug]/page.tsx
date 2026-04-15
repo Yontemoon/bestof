@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation'
 import Link from '@/components/ui/link'
 import type { Content } from '@/payload-types'
 import ImageList from '@/components/image-list'
+import { sortPayloadList } from '@/lib/utils'
 
 const CreatorPage = async ({ params }: { params: Promise<{ id: string; slug: string }> }) => {
   const { id, slug } = await params
@@ -38,6 +39,7 @@ const CreatorPage = async ({ params }: { params: Promise<{ id: string; slug: str
                 <ImageList contentData={content} />
               </div>
               <h2>{content.title}</h2>
+
               {content.related_list?.docs?.map((list) => {
                 if (typeof list === 'object' && typeof list !== 'number')
                   return (

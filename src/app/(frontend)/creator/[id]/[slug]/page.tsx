@@ -4,7 +4,6 @@ import { redirect } from 'next/navigation'
 import Link from '@/components/ui/link'
 import type { Content } from '@/payload-types'
 import ImageList from '@/components/image-list'
-import { sortPayloadList } from '@/lib/utils'
 
 const CreatorPage = async ({ params }: { params: Promise<{ id: string; slug: string }> }) => {
   const { id, slug } = await params
@@ -14,7 +13,6 @@ const CreatorPage = async ({ params }: { params: Promise<{ id: string; slug: str
     collection: 'creator',
     id,
   })
-  console.log(data)
 
   if (slug !== data.slug) {
     redirect(`/creator/${data.id}/${data.slug}`)

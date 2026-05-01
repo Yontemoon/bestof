@@ -45,7 +45,7 @@ const ContentPage = async ({ params }: { params: Promise<{ id: string; slug: str
   return (
     <div>
       {contentDetails.poster_url && (
-        <div className="aspect-2/3 w-full overflow-hidden">
+        <div className="aspect-2/3 w-full overflow-hidden mt-3">
           <ImageList contentData={contentDetails} />
         </div>
       )}

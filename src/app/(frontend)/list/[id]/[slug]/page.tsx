@@ -24,8 +24,8 @@ const ListPage = async ({ params }: { params: Promise<{ id: string; slug: string
 
   return (
     <div className="mx-auto w-full">
-      <div className="space-y-8">
-        <header className="space-y-3 border-b border-border pb-6">
+      <div className="space-y-4">
+        <header className="space-y-3 border-b border-border mt-3">
           <h1 className="max-w-4xl text-3xl font-semibold tracking-tight sm:text-4xl">
             {data.parent_title}
           </h1>
@@ -61,9 +61,7 @@ const ListPage = async ({ params }: { params: Promise<{ id: string; slug: string
                 <h2 className="text-2xl font-semibold tracking-tight">{list.list_title}</h2>
               )}
               {list.description && (
-                <h3 className="max-w-3xl text-sm leading-6 text-muted-foreground">
-                  {list.description}
-                </h3>
+                <h3 className="text-sm leading-6 text-muted-foreground">{list.description}</h3>
               )}
               <ListComp
                 className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-3"

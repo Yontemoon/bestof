@@ -13,7 +13,11 @@ export const Content: CollectionConfig = {
   slug: 'Content',
   admin: {
     useAsTitle: 'title',
+    // components: {
+    //   beforeListTable: ['/components/tmdb'],
+    // },
   },
+
   fields: [
     {
       name: 'title',
@@ -51,6 +55,14 @@ export const Content: CollectionConfig = {
       type: 'text',
       required: false,
     },
+
+    {
+      name: 'media',
+      type: 'upload',
+      relationTo: 'media',
+      required: false,
+    },
+
     {
       name: 'creator',
       type: 'relationship',
@@ -82,6 +94,7 @@ export const Content: CollectionConfig = {
       defaultLimit: 2000,
     },
   ],
+
   hooks: {
     beforeChange: [beforeChangeHook],
   },

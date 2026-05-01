@@ -24,20 +24,22 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          'selection:bg-secondary selection:text-white mx-auto max-w-150 px-7 py-7 space-y-5 w-full',
+          'selection:bg-secondary selection:text-white space-y-5 w-full antialiased ',
           sofiaSans.className,
         )}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <TopNavbar />
-          <main className="min-h-[80vh]">{children}</main>
-          <Footer />
-        </ThemeProvider>
+        <div className="mx-auto px-7 py-7 max-w-150 ">
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <TopNavbar />
+            <div className="min-h-[80vh] ">{children}</div>
+            <Footer />
+          </ThemeProvider>
+        </div>
       </body>
     </html>
   )

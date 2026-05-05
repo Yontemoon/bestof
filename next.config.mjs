@@ -22,6 +22,12 @@ const nextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'bestof-production.up.railway.app',
+        port: '',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
         hostname: 'rpzsmirhlgtosulbaqah.supabase.co',
         port: '',
         pathname: '**',

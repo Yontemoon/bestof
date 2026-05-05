@@ -19,6 +19,11 @@ export const Category: CollectionConfig = {
       required: true,
     },
     {
+      name: 'image_ratio',
+      type: 'text',
+      required: false,
+    },
+    {
       name: 'associated_lists',
       type: 'join',
       collection: 'List',

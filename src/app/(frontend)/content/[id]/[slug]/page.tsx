@@ -44,8 +44,8 @@ const ContentPage = async ({ params }: { params: Promise<{ id: string; slug: str
 
   return (
     <div>
-      {contentDetails.poster_url && (
-        <div className="aspect-2/3 w-full overflow-hidden mt-3">
+      {contentDetails && (
+        <div className="w-full overflow-hidden mt-3">
           <ImageList contentData={contentDetails} />
         </div>
       )}
@@ -59,7 +59,7 @@ const ContentPage = async ({ params }: { params: Promise<{ id: string; slug: str
                 return null
               }
               return (
-                <span key={creator.id} className="  px-1 py-1 leading-none">
+                <span key={creator.id} className="px-1 py-1 leading-none">
                   <Link href={`/creator/${creator.id}/${creator.slug}`}>{creator.creator}</Link>
                 </span>
               )

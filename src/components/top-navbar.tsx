@@ -21,7 +21,7 @@ const TopNavbar = async () => {
   //   })
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 mb-5">
       <div className="flex justify-between flex-row w-full items-center ">
         <Link href="/">
           <span>Best Of</span>

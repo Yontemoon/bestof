@@ -29,7 +29,7 @@ const ListPage = async ({ params }: { params: Promise<{ id: string; slug: string
           <h1 className="max-w-4xl text-3xl font-semibold tracking-tight sm:text-4xl">
             {data.parent_title}
           </h1>
-          <div className="text-sm leading-6 text-muted-foreground">
+          <div className="text-sm leading-6 text-muted-foreground mb-2">
             {typeof data.author === 'object' && data.author && 'id' in data.author && (
               <div className="flex flex-wrap items-center">
                 {data.publish_date && (
@@ -50,6 +50,24 @@ const ListPage = async ({ params }: { params: Promise<{ id: string; slug: string
                 )}
               </div>
             )}
+            {!data.author &&
+              data.publisher &&
+              data.publisher &&
+              typeof data.publisher !== 'number' && (
+                <div>
+                  {data.publish_date && (
+                    <span>{formatDate(new Date(data.publish_date))}&nbsp;/&nbsp;</span>
+                  )}
+                  {data.list_link && publisherName && (
+                    <span>
+                      <>as published from</>
+                      <a className="pl-1 hover:underline" href={data.list_link}>
+                        {publisherName}
+                      </a>
+                    </span>
+                  )}
+                </div>
+              )}
           </div>
         </header>
 
@@ -116,9 +134,9 @@ const ContentComp = ({
 }) => {
   return (
     <li className="flex h-full flex-col gap-3">
-      {contentData.poster_url ? (
+      {contentData ? (
         <Link href={`/content/${contentData.id}/${contentData.slug}`}>
-          <div className="mx-auto aspect-2/3 w-full max-w-48 overflow-hidden ">
+          <div className="mx-auto max-w-48 overflow-hidden h-full">
             <ImageList contentData={contentData} />
           </div>
         </Link>

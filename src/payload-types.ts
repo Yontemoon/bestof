@@ -157,6 +157,7 @@ export interface UserAuthOperations {
 export interface Category {
   id: string;
   creator_type: string;
+  image_ratio?: string | null;
   associated_lists?: {
     docs?: (number | List)[];
     hasNextPage?: boolean;
@@ -425,6 +426,7 @@ export interface PayloadMigration {
 export interface CategorySelect<T extends boolean = true> {
   id?: T;
   creator_type?: T;
+  image_ratio?: T;
   associated_lists?: T;
   updatedAt?: T;
   createdAt?: T;

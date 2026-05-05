@@ -11,7 +11,6 @@ export const POST = async (request: NextRequest) => {
 
     const directors = credits.crew.filter((m) => m.job === 'Director')
 
-    console.log(directors)
     const payload = await createPayload()
 
     directors.forEach(async (director) => {

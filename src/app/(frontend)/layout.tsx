@@ -6,6 +6,7 @@ import { ThemeProvider } from '@/providers/theme'
 import { Metadata } from 'next'
 import './styles.css'
 import { cn } from '@/lib/utils'
+import { Toaster } from '@/components/ui/sonner'
 
 export const metadata: Metadata = {
   description: 'Best of',
@@ -38,6 +39,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
             <TopNavbar />
             <div className="min-h-[80vh] ">{children}</div>
             <Footer />
+            <Toaster />
           </ThemeProvider>
         </div>
       </body>

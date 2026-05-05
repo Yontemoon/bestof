@@ -16,6 +16,7 @@ import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { addSpotifyAlbumAndCreator } from '@/lib/spotify'
 const TCategories = ['movies', 'albums'] as const
+import { toast } from 'sonner'
 
 type PropTypes = {
   categories: typeof TCategories
@@ -43,11 +44,6 @@ const ClientComp = ({ categories }: PropTypes) => {
   const [currentInput, setCurrentInput] = React.useState<string>('')
   const [isSearching, setIsSearching] = React.useState(false)
   const debouncedSearched = useDebounce(currentInput, 300)
-
-  // React.useEffect(() => {
-  //   setCurrentInput('')
-  //   setResults(null)
-  // }, [selectedCategory])
 
   React.useEffect(() => {
     const searchHN = async () => {
@@ -139,7 +135,6 @@ const MovieResults = ({ results }: { results: TMovieSearch[] | null }) => {
     })
 
     const data = await res.json()
-    console.log({ data })
   }
   return (
     <div>
@@ -160,7 +155,7 @@ const MovieResults = ({ results }: { results: TMovieSearch[] | null }) => {
                   <h1>{movie.title}</h1>
                   <Button
                     onClick={async () => {
-                      await addMovieToPayloadList(movie)
+                      const res = await addMovieToPayloadList(movie)
                     }}
                   >
                     Add to Content
@@ -194,13 +189,19 @@ const AlbumResults = ({ results }: { results: TSpotifySearch | null }) => {
                 <div className="">
                   <h2>{album.name}</h2>
                   {album.artists.map((artist) => {
-                    return <h3>{artist.name}</h3>
+                    return <h3 key={artist.id}>{artist.name}</h3>
                   })}
 
                   <Button
                     onClick={async () => {
                       const albumData = await addSpotifyAlbumAndCreator(album.id)
-                      console.log(albumData)
+                      if (!albumData.success) {
+                        toast.warning('Already added.')
+                      }
+
+                      if (albumData.success) {
+                        toast.success('Added!')
+                      }
                     }}
                   >
                     Add

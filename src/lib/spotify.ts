@@ -55,7 +55,7 @@ const searchSpotifyAlbums = async (term: string) => {
     },
   })
   const data = await res.json()
-  console.log(data)
+
   return data
 }
 
@@ -87,11 +87,28 @@ const addSpotifyAlbumAndCreator = async (album_id: string) => {
           slug: slugify(`${artistId.name}`),
         },
       })
-      console.log(createdCreator)
+
       artists.push(createdCreator)
     } else {
       artists.push(existingCreator)
       console.warn(`Artist ${artistId.name} is already in the database!`)
+    }
+  }
+
+  const existingAlbum = await payload.find({
+    collection: 'Content',
+    limit: 1,
+    where: {
+      unique_id: {
+        equals: album_id,
+      },
+    },
+  })
+
+  if (existingAlbum.docs[0]) {
+    return {
+      success: false,
+      details: 'Already found',
     }
   }
 
@@ -107,8 +124,6 @@ const addSpotifyAlbumAndCreator = async (album_id: string) => {
       creator: artists.map((artist) => artist.id),
     },
   })
-
-  console.log(createdNewAlbum)
 
   if (coverImage?.url) {
     const imageRes = await fetch(coverImage.url)
@@ -152,7 +167,10 @@ const addSpotifyAlbumAndCreator = async (album_id: string) => {
     }
   }
 
-  return data
+  return {
+    success: true,
+    details: 'Added',
+  }
 
   // Get results
   // Get album details and also get creator(s) of album

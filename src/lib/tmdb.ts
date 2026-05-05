@@ -7,7 +7,7 @@ import { IMDB_URL } from './constants'
 const tmdbFetchWrapper = async <T extends unknown>(url: string) => {
   const res = await fetch(`${IMDB_URL}${url}`, {
     headers: {
-      Authorization: `Bearer ${process.env.NEXT_PUBLIC_MOVIE_DB_API}`,
+      Authorization: `Bearer ${process.env.MOVIE_DB_API}`,
       accept: 'application/json',
     },
   })

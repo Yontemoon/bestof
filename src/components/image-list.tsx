@@ -2,25 +2,20 @@ import { Content } from '@/payload-types'
 import React from 'react'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
-import { headers } from 'next/headers'
+
+import { DOMAIN_NAME } from '@/lib/constants'
 
 type PropTypes = {
   contentData: Content
 }
 
 const ImageList = async ({ contentData }: PropTypes) => {
-  const headersList = await headers()
-  const domain = headersList.get('x-forwarded-host') || headersList.get('host')
-
   const media = typeof contentData.media === 'number' ? null : contentData.media
   const category = typeof contentData.category === 'string' ? null : contentData.category
   const aspectRatio = category?.image_ratio ?? null
-  const isDev = process.env.NODE_ENV === 'development'
 
-  const url = contentData.media
-    ? `${isDev ? 'http://' : 'https://'}${domain}${media?.url}`
-    : contentData.poster_url
-
+  const url = contentData.media ? `${DOMAIN_NAME}${media?.url}` : contentData.poster_url
+  console.log(url)
   return (
     <div
       className={cn(

@@ -10,7 +10,7 @@ const CategoryLayout = async ({ children, params }: PropTypes) => {
   const { slug } = await params
 
   return (
-    <div>
+    <div className="space-y-4">
       <div>
         <YearNavbar slug={slug} />
       </div>

@@ -8,9 +8,11 @@ type HomePageProps = {
   searchParams?: Promise<{
     page?: string
   }>
+  params: Promise<{ year: string }>
 }
 
-export default async function HomePage({ searchParams }: HomePageProps) {
+export default async function HomePage({ searchParams, params }: HomePageProps) {
+  const { year } = await params
   const resolvedSearchParams = await searchParams
   const currentPage = Math.max(1, Number(resolvedSearchParams?.page) || 1)
   const payload = await createPayload()
@@ -19,16 +21,25 @@ export default async function HomePage({ searchParams }: HomePageProps) {
     collection: 'List',
     limit: PAGINATION_LIMIT,
     page: currentPage,
+    where: {
+      and: [
+        {
+          year: {
+            equals: Number(year),
+          },
+        },
+      ],
+    },
   })
 
   return (
     <div className="max-w-4xl mx-auto py-8">
-      <h1 className="text-2xl font-bold mb-8">Latest Lists Added</h1>
+      <h1 className="text-2xl font-bold mb-8">Latest Lists Added for {year}</h1>
 
       <ul className="divide-y divide-border">
+        {list.docs.length === 0 && <div>Nothing Found.</div>}
         {list.docs.map((doc) => {
           const category = typeof doc.category === 'object' ? doc.category?.id : null
-          const year = typeof doc.year === 'object' ? doc.year?.id : doc.year
 
           const creatorName =
             (typeof doc.author === 'object' && doc.author?.name) ||
@@ -38,8 +49,6 @@ export default async function HomePage({ searchParams }: HomePageProps) {
             <li key={doc.id} className="py-6 first:pt-0">
               <div className="flex items-center gap-3 text-sm font-bold uppercase tracking-wider text-primary mb-1">
                 {category && <span>{category}</span>}
-                {category && year && <span className="opacity-30">|</span>}
-                {year && <span>{year}</span>}
               </div>
 
               <Link href={`/list/${doc.id}/${doc.slug}`}>

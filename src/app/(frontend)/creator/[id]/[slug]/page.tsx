@@ -33,11 +33,7 @@ const CreatorPage = async ({ params }: { params: Promise<{ id: string; slug: str
         {filterList?.map((content) => {
           return (
             <div key={content.id} className="space-y-1">
-              {content.poster_url && (
-                <div className="aspect-2/3 w-full overflow-hidden">
-                  <ImageList contentData={content} />
-                </div>
-              )}
+              {content && <ImageList contentData={content} />}
               <h2>{content.title}</h2>
 
               {content.related_list?.docs?.map((list) => {

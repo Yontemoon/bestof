@@ -6,6 +6,23 @@ import type { Content } from '@/payload-types'
 import { cn, formatDate } from '@/lib/utils'
 import ImageList from '@/components/image-list'
 
+// export const revalidate = 3600 //
+
+export async function generateStaticParams() {
+  const payload = await createPayload()
+  const { docs } = await payload.find({
+    collection: 'List',
+    pagination: false,
+  })
+
+  return docs
+    .filter((doc) => doc.slug)
+    .map((doc) => ({
+      id: String(doc.id),
+      slug: doc.slug,
+    }))
+}
+
 const ListPage = async ({ params }: { params: Promise<{ id: string; slug: string }> }) => {
   const { id, slug } = await params
 
@@ -22,13 +39,19 @@ const ListPage = async ({ params }: { params: Promise<{ id: string; slug: string
   const publisherName =
     data.publisher && typeof data.publisher !== 'number' ? data.publisher?.name : null
 
+  const category = typeof data.category === 'object' ? data.category?.id : null
+  const year = typeof data.year === 'object' ? data.year?.id : data.year
+
   return (
     <div className="mx-auto w-full">
       <div className="space-y-4">
-        <header className="space-y-3 border-b border-border mt-3">
-          <h1 className="max-w-4xl text-3xl font-semibold tracking-tight sm:text-4xl">
-            {data.parent_title}
-          </h1>
+        <header className="border-b border-border space-y-4">
+          <div className="flex items-center gap-3 text-sm font-bold uppercase tracking-wider text-primary ">
+            {category && <span>{category}</span>}
+            {category && year && <span className="opacity-30">|</span>}
+            {year && <span>{year}</span>}
+          </div>
+          <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">{data.parent_title}</h1>
           <div className="text-sm leading-6 text-muted-foreground mb-2">
             {typeof data.author === 'object' && data.author && 'id' in data.author && (
               <div className="flex flex-wrap items-center">

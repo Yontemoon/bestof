@@ -1,6 +1,6 @@
 'use client'
 
-import { Bar, BarChart, XAxis, YAxis } from 'recharts'
+import { Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis } from 'recharts'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
@@ -10,6 +10,7 @@ import {
   type ChartConfig,
 } from '@/components/ui/chart'
 import { useRouter } from 'next/navigation'
+import { Content } from '@/payload-types'
 
 export const description = 'A horizontal bar chart'
 
@@ -22,7 +23,7 @@ const chartConfig = {
 
 type PropTypes = {
   chartData: {
-    movie: string
+    movie: Content
     count: number
   }[]
 }
@@ -30,53 +31,50 @@ type PropTypes = {
 export function ChartBarHorizontal({ chartData }: PropTypes) {
   const router = useRouter()
 
+  // Need category and year
   return (
     <Card>
       <CardHeader>
-        <CardTitle>The Top Movies Most Mentioned</CardTitle>
+        <CardTitle>Top 10 for Movies of 2025</CardTitle>
       </CardHeader>
       <CardContent>
-        <ChartContainer
-          config={chartConfig}
-          className="aspect-auto"
-          style={{ height: Math.max(chartData.length * 44, 220) }}
-        >
+        <ChartContainer config={chartConfig}>
           <BarChart
             accessibilityLayer
             data={chartData}
             layout="vertical"
             margin={{
-              left: 12,
-              right: 12,
+              right: 16,
             }}
           >
-            <XAxis type="number" dataKey="count" hide />
+            <CartesianGrid horizontal={false} />
             <YAxis
-              dataKey="movie"
+              dataKey="movie.title"
               type="category"
-              width={180}
-              interval={0}
               tickLine={false}
-              tickMargin={12}
+              tickMargin={10}
               axisLine={false}
-              tick={{ fontSize: 12 }}
-              tickFormatter={(value: string) =>
-                value.length > 28 ? `${value.slice(0, 28)}...` : value
-              }
+              tickFormatter={(value) => value.slice(0, 3)}
+              hide
             />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent formatter={(value) => `${value} votes`} />}
-            />
-            <Bar
-              dataKey="count"
-              fill="var(--chart-1)"
-              radius={5}
-              //   onClick={(item) => {
-              //     router.push(`/content/${}`)
-              //     console.log(item)
-              //   }}
-            />
+            <XAxis dataKey="count" type="number" hide />
+            <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+            <Bar dataKey="count" fill="var(--color-chart-1)" radius={4}>
+              <LabelList
+                dataKey="movie.title"
+                position="insideLeft"
+                offset={8}
+                className="fill-(--color-label)"
+                fontSize={12}
+              />
+              <LabelList
+                dataKey="count"
+                position="right"
+                offset={8}
+                className="fill-foreground"
+                fontSize={12}
+              />
+            </Bar>
           </BarChart>
         </ChartContainer>
       </CardContent>

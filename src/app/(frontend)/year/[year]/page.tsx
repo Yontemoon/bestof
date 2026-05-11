@@ -1,8 +1,8 @@
 import React from 'react'
-import Link from '@/components/ui/link'
 import { createPayload } from '@/utils/payload'
 import { PAGINATION_LIMIT } from '@/lib/constants'
 import { PaginaionList } from '@/components/pagination'
+import ContentList from '@/components/content-list'
 
 type HomePageProps = {
   searchParams?: Promise<{
@@ -39,33 +39,7 @@ export default async function HomePage({ searchParams, params }: HomePageProps) 
       <ul className="divide-y divide-border">
         {list.docs.length === 0 && <div>Nothing Found.</div>}
         {list.docs.map((doc) => {
-          const category = typeof doc.category === 'object' ? doc.category?.id : null
-
-          const creatorName =
-            (typeof doc.author === 'object' && doc.author?.name) ||
-            (typeof doc.publisher === 'object' && doc.publisher?.name)
-
-          return (
-            <li key={doc.id} className="py-6 first:pt-0">
-              <div className="flex items-center gap-3 text-sm font-bold uppercase tracking-wider text-primary mb-1">
-                {category && <span>{category}</span>}
-              </div>
-
-              <Link href={`/list/${doc.id}/${doc.slug}`}>
-                <span className=' className="text-xl font-semibold hover:underline decoration-primary underline-offset-4"'>
-                  {' '}
-                  {doc.parent_title}
-                </span>
-              </Link>
-              <div>
-                {creatorName && (
-                  <span className="text-muted-foreground  text-sm tracking-wider">
-                    by {creatorName}
-                  </span>
-                )}
-              </div>
-            </li>
-          )
+          return <ContentList doc={doc} key={doc.id} showYear={false} />
         })}
       </ul>
       <PaginaionList list={list} currentPage={currentPage} route="/" />

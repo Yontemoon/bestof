@@ -15,7 +15,6 @@ const ImageList = async ({ contentData }: PropTypes) => {
   const aspectRatio = category?.image_ratio ?? null
 
   const url = contentData.media ? `${DOMAIN_NAME}${media?.url}` : contentData.poster_url
-  console.log(url)
   return (
     <div
       className={cn(

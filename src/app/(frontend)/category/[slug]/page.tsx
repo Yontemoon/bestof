@@ -3,6 +3,7 @@ import Link from '@/components/ui/link'
 import React from 'react'
 import { PAGINATION_LIMIT } from '@/lib/constants'
 import { PaginaionList } from '@/components/pagination'
+import ContentList from '@/components/content-list'
 
 const ContentPage = async ({
   params,
@@ -21,7 +22,7 @@ const ContentPage = async ({
 
   const list = await payload.find({
     collection: 'List',
-    depth: 0,
+    depth: 1,
     page: currentPage,
     limit: PAGINATION_LIMIT,
     where: {
@@ -32,16 +33,15 @@ const ContentPage = async ({
   })
 
   return (
-    <div>
-      {list.docs.map((doc) => {
-        return (
-          <div key={doc.id}>
-            <Link href={`/list/${doc.id}/${doc.slug}`}>{doc.parent_title}</Link>
-          </div>
-        )
-      })}
+    <>
+      <h1 className="text-2xl font-bold mb-8">Latest {slug} Added</h1>
+      <ul className="divide-y divide-border">
+        {list.docs.map((doc) => {
+          return <ContentList doc={doc} key={doc.id} showCategory={false} />
+        })}
+      </ul>
       <PaginaionList list={list} currentPage={currentPage} route={`/category/${slug}`} />
-    </div>
+    </>
   )
 }
 

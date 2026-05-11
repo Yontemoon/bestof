@@ -39,7 +39,7 @@ const CategoryBaseOnYear = async ({
   })
 
   const all = Object.values(
-    allResult.docs.reduce<Record<number, { movie: string; count: number }>>((acc, doc) => {
+    allResult.docs.reduce<Record<number, { movie: Content; count: number }>>((acc, doc) => {
       for (const parentList of doc.parent_list ?? []) {
         for (const entry of parentList.list_entry ?? []) {
           if (typeof entry.content === 'number') continue
@@ -53,7 +53,7 @@ const CategoryBaseOnYear = async ({
           }
 
           acc[movieId] = {
-            movie: entry.content.title,
+            movie: entry.content,
             count: 1,
           }
         }
@@ -92,11 +92,27 @@ const CategoryBaseOnYear = async ({
   return (
     <div className="space">
       <ChartBarHorizontal chartData={all} />
-      <div className="mt-4">
+      <div className="mt-4 space-y-3">
         {list.docs.map((doc) => {
           return (
             <div key={doc.id}>
-              <Link href={`/list/${doc.id}/${doc.slug}`}>{doc.parent_title}</Link>
+              <Link
+                href={`/list/${doc.id}/${doc.slug}`}
+                className="text-base font-semibold tracking-tight underline-offset-4 hover:text-primary hover:underline"
+              >
+                {doc.parent_title}
+              </Link>
+              {typeof doc.author === 'object' && doc.author && 'id' in doc.author && (
+                <div className="mt-1 text-sm text-muted-foreground">
+                  by{' '}
+                  <Link
+                    href={`/author/${doc.author.id}/${doc.author.slug}`}
+                    className="underline-offset-4 hover:text-primary hover:underline"
+                  >
+                    {doc.author.name}
+                  </Link>
+                </div>
+              )}
             </div>
           )
         })}

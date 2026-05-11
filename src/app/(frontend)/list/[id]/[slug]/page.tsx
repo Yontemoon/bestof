@@ -6,8 +6,6 @@ import type { Content } from '@/payload-types'
 import { cn, formatDate } from '@/lib/utils'
 import ImageList from '@/components/image-list'
 
-// export const revalidate = 3600 //
-
 export async function generateStaticParams() {
   const payload = await createPayload()
   const { docs } = await payload.find({

@@ -91,6 +91,9 @@ export interface Config {
     creator: {
       related_content: 'Content';
     };
+    publisher: {
+      related_list: 'List';
+    };
     author: {
       related_lists: 'List';
     };
@@ -205,6 +208,11 @@ export interface Publisher {
   id: number;
   name: string;
   slug: string;
+  related_list?: {
+    docs?: (number | List)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -516,6 +524,7 @@ export interface MediaSelect<T extends boolean = true> {
 export interface PublisherSelect<T extends boolean = true> {
   name?: T;
   slug?: T;
+  related_list?: T;
   updatedAt?: T;
   createdAt?: T;
 }

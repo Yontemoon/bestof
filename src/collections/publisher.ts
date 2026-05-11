@@ -31,5 +31,11 @@ export const Publisher: CollectionConfig = {
         hidden: true,
       },
     },
+    {
+      name: 'related_list',
+      type: 'join',
+      collection: 'List',
+      on: 'publisher',
+    },
   ],
 }

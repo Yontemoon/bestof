@@ -6,21 +6,6 @@ import type { Content } from '@/payload-types'
 import { cn, formatDate } from '@/lib/utils'
 import ImageList from '@/components/image-list'
 
-export async function generateStaticParams() {
-  const payload = await createPayload()
-  const { docs } = await payload.find({
-    collection: 'List',
-    pagination: false,
-  })
-
-  return docs
-    .filter((doc) => doc.slug)
-    .map((doc) => ({
-      id: String(doc.id),
-      slug: doc.slug,
-    }))
-}
-
 const ListPage = async ({ params }: { params: Promise<{ id: string; slug: string }> }) => {
   const { id, slug } = await params
 

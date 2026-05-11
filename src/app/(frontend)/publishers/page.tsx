@@ -1,4 +1,5 @@
 import { createPayload } from '@/utils/payload'
+import Link from 'next/link'
 import React from 'react'
 
 const PublishersPage = async () => {
@@ -17,7 +18,11 @@ const PublishersPage = async () => {
       <h2>This is a currated list of all the publishers so far.</h2>
       <div className="flex flex-col">
         {publisherList.map((publisher) => {
-          return <div key={publisher.id}>{publisher.name}</div>
+          return (
+            <div key={publisher.id}>
+              <Link href={`/publishers/${publisher.id}/${publisher.slug}`}>{publisher.name}</Link>
+            </div>
+          )
         })}
       </div>
     </div>

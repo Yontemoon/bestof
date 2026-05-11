@@ -39,6 +39,20 @@ const AboutPage = () => {
             curated art, music, and film.
           </p>
         </section>
+        <section>
+          <h2 className="mb-2">Future Updates</h2>
+          <p>
+            I am still in the process of adding best movies and albums of 2025, but I have a list of
+            things I am planning to add in the future.
+          </p>
+          <ul className="  list-disc pl-10">
+            <li>Video games category</li>
+            <li>Televisions category</li>
+            <li>Books category</li>
+            <li>Search bar for specific content</li>
+            <li>Previous years (2024, 2023, 2022) for now.</li>
+          </ul>
+        </section>
       </div>
     </div>
   )
